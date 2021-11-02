@@ -29,11 +29,13 @@ class Database(commands.Cog):
       return await self.bot.db.fetch("""SELECT * FROM pray_logs WHERE timestamp > CURRENT_DATE::timestamp""")
     
     async def get_lb_users_by_time(self, timetype):
-      print("database activated")
       return await self.bot.db.fetch("""SELECT * FROM pray_logs WHERE timestamp > timestamp - ('1' || $1)::interval""", timetype)
     
     async def get_pray_logs(self):
       return await self.bot.db.fetch("""SELECT * FROM pray_logs""")
+
+    async def get_weekly_lb_users(self):  # weekly
+      return await self.bot.db.fetch("""SELECT * FROM pray_logs WHERE timestamp > DATE_TRUNC('week', NOW()) - '1 day'::interval""")
       
 def setup(bot):
     bot.add_cog(Database(bot))

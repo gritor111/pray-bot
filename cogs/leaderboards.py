@@ -7,7 +7,8 @@ class Leaderboard(commands.Cog):
   def __init__(self, bot):
       self.bot = bot
 
-  async def get_top_body(self, pray_logs, limit):
+
+  async def get_top_body(self, author, pray_logs, limit):
 
     body = ''
 
@@ -21,13 +22,18 @@ class Leaderboard(commands.Cog):
       
       sorted_users[pray['username']] += 1
     
-    sorted_users = sorted(sorted_users.items(), key=lambda user: user[1], reverse=True)  # sort by pray_count
+    sorted_users = dict(sorted(sorted_users.items(), key=lambda user: user[1], reverse=True))  # sort by pray_count
 
-    sorted_users = sorted_users[:limit]  # slice the list
-    print(sorted_users)
-    for i, (username, pray_count) in enumerate(sorted_users):
+    for i, user in enumerate(dict(itertools.islice(sorted_users.items(), limit))):
 
-      body += f'\n\n`#{i + 1}` {username} - **{pray_count}**'
+      body += f'\n\n`#{i + 1}` {user} - **{sorted_users[user]}**'
+
+
+    if author.name not in dict(itertools.islice(sorted_users.items(), limit)):
+      if author.name not in sorted_users:
+        sorted_users[author.name] = 0
+
+      body += f"\n**⋮**\n`#{list(sorted_users.keys()).index(author.name) + 1}` {author.name} - **{sorted_users[author.name]}**"
 
     return body
 
@@ -59,11 +65,11 @@ class Leaderboard(commands.Cog):
   @top.command(name='weekly', aliases=['w'])
   async def top_weekly(self, ctx, limit=5):
 
-    weekly_pray_logs = await self.bot.hdb.get_lb_users_by_time('week')
+    weekly_pray_logs = await self.bot.hdb.get_weekly_lb_users()
 
     embed = discord.Embed(color=discord.Color.blue())
 
-    body = await self.get_top_body(weekly_pray_logs, limit)
+    body = await self.get_top_body(ctx.author, weekly_pray_logs, limit)
 
     embed.add_field(name='🙏 Weekly pray leaderboard 🙏', value=body)
 
@@ -77,7 +83,7 @@ class Leaderboard(commands.Cog):
 
     embed = discord.Embed(color=discord.Color.blue())
 
-    body = await self.get_top_body(pray_logs, limit)
+    body = await self.get_top_body(ctx.author, pray_logs, limit)
 
     embed.add_field(name='🙏 All time pray leaderboard 🙏', value=body)
 

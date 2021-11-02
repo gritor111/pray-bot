@@ -7,10 +7,6 @@ class Events(commands.Cog):
     self.bot = bot
 
   @commands.Cog.listener()
-  async def on_command_error(self, ctx, e):
-    pass
-
-  @commands.Cog.listener()
   async def on_message(self, ctx):
 
     if ctx.author.id == 408785106942164992:  # checks if its a message from owo bot
