@@ -24,5 +24,5 @@ for cog in cog_list:
   
 bot.hdb = bot.get_cog('Database')
   
-keep_alive()
+# keep_alive()
 bot.run(os.getenv('TOKEN'))
