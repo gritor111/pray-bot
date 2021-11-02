@@ -1,6 +1,5 @@
 import os
 import asyncpg
-from keep_alive import keep_alive
 from discord.ext import commands
 print("1")
 async def setup_db():
