@@ -4,20 +4,20 @@ from discord.ext import commands
 import datetime
 
 
-async def fix_dupes(user):
-    user_logs = await bot.db.fetch("""SELECT * FROM pray_logs WHERE username = $1 ORDER BY timestamp DESC""", user)
-    prev_pray_timestamp = None
-    dupes = []
-    for pray in user_logs:
-        if prev_pray_timestamp:
-            diff = prev_pray_timestamp - pray["timestamp"]
-            if diff < datetime.timedelta(minutes=2):  # not 5 because theres lag
-                dupes.append(pray["timestamp"])
-        prev_pray_timestamp = pray["timestamp"]
-    for timestamp in dupes:
-        print(timestamp)
-        await bot.db.execute("""DELETE FROM pray_logs WHERE username = $1 AND timestamp = $2""", user, timestamp)
-    print(user, len(dupes))
+# async def fix_dupes(user):
+#     user_logs = await bot.db.fetch("""SELECT * FROM pray_logs WHERE username = $1 ORDER BY timestamp DESC""", user)
+#     prev_pray_timestamp = None
+#     dupes = []
+#     for pray in user_logs:
+#         if prev_pray_timestamp:
+#             diff = prev_pray_timestamp - pray["timestamp"]
+#             if diff < datetime.timedelta(minutes=2):  # not 5 because theres lag
+#                 dupes.append(pray["timestamp"])
+#         prev_pray_timestamp = pray["timestamp"]
+#     for timestamp in dupes:
+#         print(timestamp)
+#         await bot.db.execute("""DELETE FROM pray_logs WHERE username = $1 AND timestamp = $2""", user, timestamp)
+#     print(user, len(dupes))
 
 
 async def setup_db():
@@ -36,11 +36,11 @@ for cog in cog_list:
     bot.load_extension(f'cogs.{cog}')
     print(f'cog {cog} loaded')
 
-@bot.command(name='fixdupes')
-async def fix_dupes_but_not_the_real_one(ctx):
-    users = await bot.db.fetch("""SELECT username FROM users""")
-    for user in users:
-        await fix_dupes(user["username"])
-    await ctx.channel.send("its done lul")
+# @bot.command(name='fixdupes')
+# async def fix_dupes_but_not_the_real_one(ctx):
+#     users = await bot.db.fetch("""SELECT username FROM users""")
+#     for user in users:
+#         await fix_dupes(user["username"])
+#     await ctx.channel.send("its done lul")
 bot.hdb = bot.get_cog('Database')
 bot.run(os.getenv('TOKEN'))
