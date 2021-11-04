@@ -1,6 +1,19 @@
 import os
 import asyncpg
 from discord.ext import commands
+import datetime
+
+
+async def fix_dupes(user):
+    user_logs = await bot.db.fetch("""SELECT * FROM pray_logs WHERE username = $1""", user)
+    prev_pray_timestamp = None
+    dupes = []
+    for pray in user_logs:
+        if not prev_pray_timestamp:
+            diff = prev_pray_timestamp - pray["timestamp"]
+            if diff > datetime.timedelta(minutes=5):
+                dupes.append(pray)
+    print(dupes)
 
 
 async def setup_db():
@@ -18,7 +31,7 @@ cog_list = [f.replace('.py', '') for f in os.listdir('cogs') if f.endswith('.py'
 for cog in cog_list:
     bot.load_extension(f'cogs.{cog}')
     print(f'cog {cog} loaded')
-  
+
+fix_dupes()
 bot.hdb = bot.get_cog('Database')
-bot.hdb.fix_dupes('aine')
 bot.run(os.getenv('TOKEN'))
