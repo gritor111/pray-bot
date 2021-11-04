@@ -11,9 +11,9 @@ async def fix_dupes(user):
     for pray in user_logs:
         if prev_pray_timestamp:
             diff = prev_pray_timestamp - pray["timestamp"]
-            print(diff)
+            print(diff, pray["timestamp"])
             if diff < datetime.timedelta(minutes=5):
-                dupes.append(pray)
+                dupes.append(pray["timestamp"])
         prev_pray_timestamp = pray["timestamp"]
     print(dupes)
 
