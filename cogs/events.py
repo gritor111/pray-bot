@@ -22,12 +22,11 @@ class Events(commands.Cog):
                         await self.bot.hdb.add_user(prayer_username)
 
                     last_pray_timestamp = (await self.bot.hdb.get_last_pray_user(prayer_username))[0]['timestamp']
-                    await self.bot.hdb.add_pray(prayer_username)
-                    print(last_pray_timestamp)
-                    print((datetime.datetime.now(datetime.timezone.utc) - last_pray_timestamp) >= datetime.timedelta(minutes=5), (datetime.datetime.now(datetime.timezone.utc) - last_pray_timestamp), datetime.datetime.now(datetime.timezone.utc), datetime.timedelta(minutes=5))
-                    #if last_pray_timestamp:  # checking if user prayed before
-                        #if (last_pray_timestamp - datetime.datetime.utcnow()) >= datetime.time(minute=5):
 
+                    if last_pray_timestamp:  # checking if user prayed before
+                        if (last_pray_timestamp - datetime.datetime.utcnow()) >= datetime.time(minute=5):
+                            await self.bot.hdb.add_pray(prayer_username)
+                            print(1)
 
 
 def setup(bot):
