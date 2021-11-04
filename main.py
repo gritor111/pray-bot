@@ -5,7 +5,7 @@ import datetime
 
 
 async def fix_dupes(user):
-    user_logs = await bot.db.fetch("""SELECT * FROM pray_logs WHERE username = $1""", user)
+    user_logs = await bot.db.fetch("""SELECT * FROM pray_logs WHERE username = $1 ORDER BY timestamp DESC""", user)
     prev_pray_timestamp = None
     dupes = []
     for pray in user_logs:
@@ -15,6 +15,7 @@ async def fix_dupes(user):
             print(diff)
             if diff > datetime.timedelta(minutes=5):
                 dupes.append(pray)
+        prev_pray_timestamp = pray["timestamp"]
     print(dupes)
 
 
