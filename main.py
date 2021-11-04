@@ -32,6 +32,6 @@ for cog in cog_list:
     bot.load_extension(f'cogs.{cog}')
     print(f'cog {cog} loaded')
 
-fix_dupes()
+fix_dupes('aine')
 bot.hdb = bot.get_cog('Database')
 bot.run(os.getenv('TOKEN'))
