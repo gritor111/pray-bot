@@ -22,8 +22,10 @@ class Events(commands.Cog):
                     if not user:  # not in db
                         await self.bot.hdb.add_user(prayer_username)
 
-                    print(prayer_username)
-                    await self.bot.hdb.add_pray(prayer_username)
+                    last_pray_timestamp = await self.bot.get_last_pray_user(prayer_username)["timestamp"]
+                    print((last_pray_timestamp - datetime.datetime.utcnow()) >= datetime.time(minute=5), (last_pray_timestamp - datetime.datetime.utcnow()), datetime.time(minute=5))
+                    if (last_pray_timestamp - datetime.datetime.utcnow()) >= datetime.time(minute=5):
+                        await self.bot.hdb.add_pray(prayer_username)
 
 
 def setup(bot):
