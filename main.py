@@ -15,6 +15,7 @@ async def fix_dupes(user):
                 dupes.append(pray["timestamp"])
         prev_pray_timestamp = pray["timestamp"]
     for timestamp in dupes:
+        print(timestamp)
         await bot.db.execute("""DELETE FROM pray_logs WHERE username = $1 AND timestamp = $2""", user, timestamp)
     print(user, len(dupes))
 
@@ -37,10 +38,9 @@ for cog in cog_list:
 
 @bot.command(name='fixdupes')
 async def fix_dupes_but_not_the_real_one(ctx):
-    if ctx.author.id == 656373241144934420:
-        users = await bot.db.fetch("""SELECT username FROM users""")
-        for user in users:
-            await fix_dupes(user["username"])
+    users = await bot.db.fetch("""SELECT username FROM users""")
+    for user in users:
+        await fix_dupes(user["username"])
     await ctx.channel.send("its done lul")
 bot.hdb = bot.get_cog('Database')
 bot.run(os.getenv('TOKEN'))
