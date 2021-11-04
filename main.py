@@ -2,8 +2,9 @@ import os
 import asyncpg
 from discord.ext import commands
 
+
 async def setup_db():
-  bot.db = await asyncpg.create_pool(dsn=os.getenv("DATABASE_URL"), max_size=5, min_size=1)
+    bot.db = await asyncpg.create_pool(dsn=os.getenv("DATABASE_URL"), max_size=5, min_size=1)
 
 prefix = os.getenv('PREFIX')
 bot = commands.Bot(command_prefix=prefix)
@@ -15,8 +16,8 @@ print('database setup completed.')
 # load cogs
 cog_list = [f.replace('.py', '') for f in os.listdir('cogs') if f.endswith('.py')]
 for cog in cog_list:
-  bot.load_extension(f'cogs.{cog}')
-  print(f'cog {cog} loaded')
+    bot.load_extension(f'cogs.{cog}')
+    print(f'cog {cog} loaded')
   
 bot.hdb = bot.get_cog('Database')
 
