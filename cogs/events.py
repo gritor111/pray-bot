@@ -33,6 +33,8 @@ class Events(commands.Cog):
                     else:  # first ever pray
                         await self.bot.hdb.add_pray(prayer_username)
 
+                    await ctx.add_reaction("🙏")
+
 
 def setup(bot):
     bot.add_cog(Events(bot))
