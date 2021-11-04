@@ -51,6 +51,19 @@ class Database(commands.Cog):
             """SELECT * FROM pray_logs WHERE username = $1 ORDER BY timestamp DESC LIMIT 1""",
             user)
 
+    async def fix_dupes(self, user):
+        user_logs = await self.bot.db.fetch("""SELECT * FROM pray_logs WHERE username = $1""", user)
+        prev_pray_timestamp = None
+        dupes = []
+        for pray in user_logs:
+            if not prev_pray_timestamp:
+                diff = prev_pray_timestamp - pray["timestamp"]
+                if diff > datetime.timedelta(minutes=5):
+                    dupes.append(pray)
+        print(dupes)
+
+
+
 
 def setup(bot):
     bot.add_cog(Database(bot))
