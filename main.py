@@ -33,8 +33,7 @@ for cog in cog_list:
     print(f'cog {cog} loaded')
 
 @bot.command(name='fixdupes')
-async def fix_dupes(ctx):
-    if ctx.author.id == 656373241144934420:
-        await fix_dupes('aine')
+async def fix_dupes():
+    await fix_dupes('aine')
 bot.hdb = bot.get_cog('Database')
 bot.run(os.getenv('TOKEN'))
