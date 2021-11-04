@@ -35,9 +35,9 @@ for cog in cog_list:
 
 @bot.command(name='fixdupes')
 async def fix_dupes_but_not_the_real_one(ctx):
-    print(ctx.author.id)
-    users = await bot.db.fetch("""SELECT username FROM users""")
-    for user in users:
-        await fix_dupes(user)
+    if ctx.author.id == 656373241144934420:
+        users = await bot.db.fetch("""SELECT username FROM users""")
+        for user in users:
+            await fix_dupes(user["username"])
 bot.hdb = bot.get_cog('Database')
 bot.run(os.getenv('TOKEN'))
