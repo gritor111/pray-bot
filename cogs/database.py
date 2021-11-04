@@ -47,8 +47,9 @@ class Database(commands.Cog):
             """SELECT * FROM pray_logs WHERE timestamp > DATE_TRUNC('week', NOW()) - '1 day'::interval""")
 
     async def get_last_pray_user(self, user):
-        return await self.bot.db.fetch("""SELECT * FROM pray_logs WHERE username = $1 ORDER BY timestamp DESC LIMIT 1""",
-                                          user)
+        return await self.bot.db.fetch(
+            """SELECT * FROM pray_logs WHERE username = $1 ORDER BY timestamp DESC LIMIT 1""",
+            user)
 
 
 def setup(bot):

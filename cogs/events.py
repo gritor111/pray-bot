@@ -1,6 +1,8 @@
 from discord.ext import commands
 import discord
 import datetime
+
+
 class Events(commands.Cog):
 
     def __init__(self, bot):
@@ -21,12 +23,14 @@ class Events(commands.Cog):
                     if not user:  # not in db
                         await self.bot.hdb.add_user(prayer_username)
 
-                    last_pray_timestamp = (await self.bot.hdb.get_last_pray_user(prayer_username))[0]['timestamp']
+                    last_pray = await self.bot.hdb.get_last_pray_user(prayer_username)
 
-                    if last_pray_timestamp:  # checking if user prayed before
-                        if (datetime.datetime.now(datetime.timezone.utc) - last_pray_timestamp) >= datetime.timedelta(minutes=5):
+                    if last_pray:  # checking if user prayed before
+                        if (datetime.datetime.now(datetime.timezone.utc) - last_pray[0]["timestamp"])\
+                                >= datetime.timedelta(minutes=5):
                             await self.bot.hdb.add_pray(prayer_username)
-                            print(1)
+                    else:  # first ever pray
+                        await self.bot.hdb.add_pray(prayer_username)
 
 
 def setup(bot):
