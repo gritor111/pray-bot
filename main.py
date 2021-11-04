@@ -41,5 +41,6 @@ async def fix_dupes_but_not_the_real_one(ctx):
         users = await bot.db.fetch("""SELECT username FROM users""")
         for user in users:
             await fix_dupes(user["username"])
+    await ctx.channel.send("its done lul")
 bot.hdb = bot.get_cog('Database')
 bot.run(os.getenv('TOKEN'))
