@@ -24,7 +24,7 @@ class Events(commands.Cog):
                     last_pray_timestamp = (await self.bot.hdb.get_last_pray_user(prayer_username))[0]['timestamp']
                     await self.bot.hdb.add_pray(prayer_username)
                     print(last_pray_timestamp)
-                    print((last_pray_timestamp - datetime.datetime.now(datetime.timezone.utc)) >= datetime.time(minute=5), (last_pray_timestamp - datetime.datetime.utcnow()), datetime.time(minute=5))
+                    print((last_pray_timestamp - datetime.datetime.now(datetime.timezone.utc)) >= datetime.timedelta(minute=5), (last_pray_timestamp - datetime.datetime.utcnow()), datetime.time(minute=5))
                     #if last_pray_timestamp:  # checking if user prayed before
                         #if (last_pray_timestamp - datetime.datetime.utcnow()) >= datetime.time(minute=5):
 
