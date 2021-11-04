@@ -12,11 +12,9 @@ async def fix_dupes(user):
         if prev_pray_timestamp:
             diff = prev_pray_timestamp - pray["timestamp"]
             if diff < datetime.timedelta(minutes=2):  # not 5 because theres lag
-                print(diff, pray["timestamp"])
                 dupes.append(pray["timestamp"])
-                print(dupes)
         prev_pray_timestamp = pray["timestamp"]
-    print(dupes, len(dupes))
+    print(user, len(dupes))
 
 
 async def setup_db():
@@ -37,6 +35,9 @@ for cog in cog_list:
 
 @bot.command(name='fixdupes')
 async def fix_dupes_but_not_the_real_one(ctx):
-    await fix_dupes('aine')
+    print(ctx.author.id)
+    users = await bot.db.fetch("""SELECT username FROM users""")
+    for user in users:
+        await fix_dupes(user)
 bot.hdb = bot.get_cog('Database')
 bot.run(os.getenv('TOKEN'))
