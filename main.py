@@ -14,6 +14,8 @@ async def fix_dupes(user):
             if diff < datetime.timedelta(minutes=2):  # not 5 because theres lag
                 dupes.append(pray["timestamp"])
         prev_pray_timestamp = pray["timestamp"]
+    for timestamp in dupes:
+        await bot.db.execute("""DELETE FROM pray_logs WHERE username = $1 AND timestamp = $2""", user, timestamp)
     print(user, len(dupes))
 
 
