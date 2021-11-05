@@ -2,92 +2,89 @@ from discord.ext import commands
 import discord
 import itertools
 
+
 class Leaderboard(commands.Cog):
 
-  def __init__(self, bot):
-      self.bot = bot
+    def __init__(self, bot):
+        self.bot = bot
 
+    async def get_top_body(self, author, pray_logs, limit):
 
-  async def get_top_body(self, author, pray_logs, limit):
+        body = ''
 
-    body = ''
+        sorted_users = {}
 
-    sorted_users = {}
+        for pray in pray_logs:
 
-    for pray in pray_logs:
+            if pray['username'] not in sorted_users:
+                sorted_users[pray['username']] = 1
+                continue
 
-      if pray['username'] not in sorted_users:
-        sorted_users[pray['username']] = 1
-        continue
-      
-      sorted_users[pray['username']] += 1
-    
-    sorted_users = dict(sorted(sorted_users.items(), key=lambda user: user[1], reverse=True))  # sort by pray_count
+            sorted_users[pray['username']] += 1
 
-    for i, user in enumerate(dict(itertools.islice(sorted_users.items(), limit))):
+        sorted_users = dict(sorted(sorted_users.items(), key=lambda user: user[1], reverse=True))  # sort by pray_count
 
-      body += f'\n\n`#{i + 1}` {user} - **{sorted_users[user]}**'
+        for i, user in enumerate(dict(itertools.islice(sorted_users.items(), limit))):
+            body += f'\n\n`#{i + 1}` {user} - **{sorted_users[user]}**'
 
+        if author.name not in dict(itertools.islice(sorted_users.items(), limit)):
+            if author.name not in sorted_users:
+                sorted_users[author.name] = 0
 
-    if author.name not in dict(itertools.islice(sorted_users.items(), limit)):
-      if author.name not in sorted_users:
-        sorted_users[author.name] = 0
+            body += f"\n**⋮**\n`#{list(sorted_users.keys()).index(author.name) + 1}` {author.name} - **{sorted_users[author.name]}**"
 
-      body += f"\n**⋮**\n`#{list(sorted_users.keys()).index(author.name) + 1}` {author.name} - **{sorted_users[author.name]}**"
+        return body
 
-    return body
+    @commands.group(name='top', aliases=['t'])
+    async def top(self, ctx):
 
-  @commands.group(name='top', aliases=['t'])
-  async def top(self, ctx):
-    
-    if ctx.invoked_subcommand is None:
-      embed = discord.Embed(color=discord.Color.blue(), title='Leaderboards and stuff')
+        if ctx.invoked_subcommand is None:
+            embed = discord.Embed(color=discord.Color.blue(), title='Leaderboards and stuff')
 
-      embed.add_field(name='DAILY', value=f"`{ctx.prefix}top daily`\n", inline=False)
-      embed.add_field(name='WEEKLY', value=f"`{ctx.prefix}top weekly`\n", inline=False)
-      embed.add_field(name='ALLTIME', value=f"`{ctx.prefix}top alltime`")
+            embed.add_field(name='DAILY', value=f"`{ctx.prefix}top daily`\n", inline=False)
+            embed.add_field(name='WEEKLY', value=f"`{ctx.prefix}top weekly`\n", inline=False)
+            embed.add_field(name='ALLTIME', value=f"`{ctx.prefix}top alltime`")
 
-      await ctx.channel.send(embed=embed)
+            await ctx.channel.send(embed=embed)
 
-  @top.command(name='daily', aliases=['d'])
-  async def top_daily(self, ctx, limit=5):
+    @top.command(name='daily', aliases=['d'])
+    async def top_daily(self, ctx, limit=5):
 
-    daily_pray_logs = await self.bot.hdb.get_daily_lb_users()
-    embed = discord.Embed(color=discord.Color.blue())
+        daily_pray_logs = await self.bot.hdb.get_daily_lb_users()
+        embed = discord.Embed(color=discord.Color.blue())
 
-    body = await self.get_top_body(ctx.author, daily_pray_logs, limit)
+        body = await self.get_top_body(ctx.author, daily_pray_logs, limit)
 
-    embed.add_field(name='🙏 Daily pray leaderboard 🙏', value=body)
+        embed.add_field(name='🙏 Daily pray leaderboard 🙏', value=body)
 
+        await ctx.channel.send(embed=embed)
 
-    await ctx.channel.send(embed=embed)
+    @top.command(name='weekly', aliases=['w'])
+    async def top_weekly(self, ctx, limit=5):
 
-  @top.command(name='weekly', aliases=['w'])
-  async def top_weekly(self, ctx, limit=5):
+        weekly_pray_logs = await self.bot.hdb.get_weekly_lb_users()
 
-    weekly_pray_logs = await self.bot.hdb.get_weekly_lb_users()
+        embed = discord.Embed(color=discord.Color.blue())
 
-    embed = discord.Embed(color=discord.Color.blue())
+        body = await self.get_top_body(ctx.author, weekly_pray_logs, limit)
 
-    body = await self.get_top_body(ctx.author, weekly_pray_logs, limit)
+        embed.add_field(name='🙏 Weekly pray leaderboard 🙏', value=body)
 
-    embed.add_field(name='🙏 Weekly pray leaderboard 🙏', value=body)
+        await ctx.channel.send(embed=embed)
 
+    @top.command(name='alltime', aliases=['at'])
+    async def all_time(self, ctx, limit=5):
 
-    await ctx.channel.send(embed=embed)
+        pray_logs = await self.bot.hdb.get_pray_logs()
 
-  @top.command(name='alltime', aliases=['at'])
-  async def all_time(self, ctx, limit=5):
+        embed = discord.Embed(color=discord.Color.blue())
 
-    pray_logs = await self.bot.hdb.get_pray_logs()
+        body = await self.get_top_body(ctx.author, pray_logs, limit)
 
-    embed = discord.Embed(color=discord.Color.blue())
+        embed.add_field(name='🙏 All time pray leaderboard 🙏', value=body)
 
-    body = await self.get_top_body(ctx.author, pray_logs, limit)
+        await ctx.channel.send(embed=embed)
 
-    embed.add_field(name='🙏 All time pray leaderboard 🙏', value=body)
-
-    await ctx.channel.send(embed=embed)
 
 def setup(bot):
     bot.add_cog(Leaderboard(bot))

@@ -8,7 +8,7 @@ class Database(commands.Cog):
         self.bot = bot
 
     async def get_user(self, column, type):
-        return await self.bot.db.fetch("SELECT * FROM users WHERE $1 = $2", column, type)
+        return await self.bot.db.fetch("SELECT * FROM users WHERE $1 = $2", column, str(type))
 
     async def add_user(self, username=None, user_id=None):
         await self.bot.db.execute("""INSERT INTO users (username, user_id) VALUES ($1, $2)""", username, user_id)
