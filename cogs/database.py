@@ -16,9 +16,9 @@ class Database(commands.Cog):
     async def add_user(self, username=None, user_id=None):
         await self.bot.db.execute("""INSERT INTO users (username, pray_count, user_id) VALUES ($1, 0, $2)""", username, user_id)
 
-    async def add_pray(self, username):
-        await self.bot.db.execute("""INSERT INTO pray_logs (username, timestamp) VALUES ($1, $2)""", username,
-                                  datetime.datetime.utcnow())
+    async def add_pray(self, username, user_id):
+        await self.bot.db.execute("""INSERT INTO pray_logs (username, timestamp, user_id) VALUES ($1, $2, $3)""", username,
+                                  datetime.datetime.utcnow(), user_id)
 
         await self.bot.db.execute("""UPDATE users SET pray_count = pray_count + 1 WHERE username = $1""",
                                   username)  # update count
