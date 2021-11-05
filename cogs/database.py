@@ -54,8 +54,8 @@ class Database(commands.Cog):
             """SELECT * FROM pray_logs WHERE username = $1 ORDER BY timestamp DESC LIMIT 1""",
             user)
 
-    async def update_user(self, column, a, username):
-        await self.bot.db.execute("""UPDATE users SET $1 = $2 WHERE username = $3""", column, a, username)
+    async def update_user(self, user_id, username):
+        await self.bot.db.execute("""UPDATE users SET user_id = $1 WHERE username = $2""", user_id, username)
 
 
 def setup(bot):
