@@ -4,7 +4,7 @@ from discord.ext import commands
 import datetime
 
 async def setup_db():
-    bot.db = await asyncpg.create_pool(dsn=os.getenv("DATABASE_URL"), max_size=5, min_size=1)
+    bot.db = await asyncpg.create_pool(dsn=os.getenv("DATABASE_URL"))
 
 
 prefix = os.getenv('PREFIX')
