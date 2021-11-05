@@ -18,7 +18,7 @@ class Events(commands.Cog):
                 if ctx.content.split('**')[3] == '!Louis':
 
                     prayer_username = ctx.content.split('**')[1].split('🙏 | ')[1]
-                    user = await self.bot.hdb.get_user('username', prayer_username)
+                    user = await self.bot.hdb.get_user(prayer_username)
 
                     if not user:  # not in db
                         await self.bot.hdb.add_user(prayer_username)
@@ -37,7 +37,7 @@ class Events(commands.Cog):
 
     @commands.Cog.listener()
     async def on_command(self, ctx):  # add user to database
-        user = await self.bot.hdb.get_user('user_id', ctx.author.id)
+        user = await self.bot.hdb.get_user(ctx.author.name)
         print(user)
         if not user:
             await self.bot.hdb.add_user(user_id=ctx.author.id)
