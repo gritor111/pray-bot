@@ -43,7 +43,7 @@ class Events(commands.Cog):
             await self.bot.hdb.add_user(user_id=ctx.author.id)
 
         if not user[0]["user_id"]:
-            await self.bot.hdb.update_user('user_id', ctx.author.id, ctx.author.name)
+            await self.bot.hdb.update_user(ctx.author.id, ctx.author.name)
 
 
 def setup(bot):
