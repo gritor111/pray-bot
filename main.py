@@ -22,4 +22,5 @@ for cog in cog_list:
     print(f'cog {cog} loaded')
 
 bot.hdb = bot.get_cog('Database')
+
 bot.run(os.getenv('TOKEN'))

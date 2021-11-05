@@ -11,7 +11,7 @@ class Database(commands.Cog):
         return await self.bot.db.fetch("SELECT * FROM users WHERE $1 = $2", column, sort_type)
 
     async def add_user(self, username=None, user_id=None):
-        await self.bot.db.execute("""INSERT INTO users (username, ,pray_count, user_id) VALUES ($1, 0, $2)""", username, user_id)
+        await self.bot.db.execute("""INSERT INTO users (username, pray_count, user_id) VALUES ($1, 0, $2)""", username, user_id)
 
     async def add_pray(self, username):
         await self.bot.db.execute("""INSERT INTO pray_logs (username, timestamp) VALUES ($1, $2)""", username,
