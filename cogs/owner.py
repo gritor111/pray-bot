@@ -15,7 +15,8 @@ class Owner(commands.Cog):
 
         for user in users:
             user = user["username"]
-            user_logs = await self.bot.db.fetch("""SELECT * FROM pray_logs WHERE username = $1 ORDER BY timestamp DESC""", user)
+            user_logs = await self.bot.db.fetch(
+                """SELECT * FROM pray_logs WHERE username = $1 ORDER BY timestamp DESC""", user)
 
             prev_pray_timestamp = None
             dupes = []
@@ -29,9 +30,13 @@ class Owner(commands.Cog):
                 prev_pray_timestamp = pray["timestamp"]
 
             for timestamp in dupes:
-                await self.bot.db.execute("""DELETE FROM pray_logs WHERE username = $1 AND timestamp = $2""", user, timestamp)
+                print(timestamp)
+                # await self.bot.db.execute("""DELETE FROM pray_logs WHERE username = $1 AND timestamp = $2""", user,
+                #                           timestamp)
 
-            text += f"removed {len(dupes)} from {user}"
+            if len(dupes) > 0:
+                text += f"removed {len(dupes)} from {user} \n"
+
         print(text)
 
 
