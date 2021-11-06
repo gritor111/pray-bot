@@ -45,9 +45,10 @@ class Owner(commands.Cog):
         users = list(set(await self.bot.db.fetch("""SELECT username FROM users""")))
         for user in users:
             username = user["username"]
-            self.bot.db.execute("""DELETE FROM users WHERE username = $1""", username)
-            self.bot.hdb.add_user(username=username)
-            print("done")
+            await self.bot.db.execute("""DELETE FROM users WHERE username = $1""", username)
+            await self.bot.hdb.add_user(username=username)
+
+        await ctx.channel.send("done")
 
 
 def setup(bot):
