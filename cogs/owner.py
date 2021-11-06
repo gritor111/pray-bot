@@ -19,7 +19,7 @@ class Owner(commands.Cog):
             dupes = []
             for pray in user_logs:
                 if prev_pray_timestamp:
-                    diff = prev_pray_timestamp - pray["timestamp"]
+                    diff = pray["timestamp"] - prev_pray_timestamp
                     print(diff)
                     if diff < datetime.timedelta(minutes=2):  # not 5 because theres lag
                         dupes.append(pray["timestamp"])
