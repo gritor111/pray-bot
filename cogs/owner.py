@@ -27,3 +27,7 @@ class Owner(commands.Cog):
             #     print(timestamp)
             #     await self.bot.db.execute("""DELETE FROM pray_logs WHERE username = $1 AND timestamp = $2""", user, timestamp)
             # print(user, len(dupes))
+
+
+def setup(bot):
+    bot.add_cog(Owner(bot))
