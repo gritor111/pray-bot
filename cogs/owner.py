@@ -42,11 +42,11 @@ class Owner(commands.Cog):
     @commands.command(name="fixduserdupes")
     @commands.is_owner()
     async def fix_user_dupes(self, ctx):
-        users = list(set(await self.bot.db.fetch("""SELECT username FROM users""")))
+        users = await self.bot.db.fetch("""SELECT * FROM users""")
         for user in users:
-            username = user["username"]
-            await self.bot.db.execute("""DELETE FROM users WHERE username = $1""", username)
-            await self.bot.hdb.add_user(username=username)
+            print(user)
+            # await self.bot.db.execute("""DELETE FROM users WHERE username = $1""", username)
+            # await self.bot.hdb.add_user(username=username)
 
         await ctx.channel.send("done")
 
