@@ -32,11 +32,13 @@ class Events(commands.Cog):
                             if user[0]["user_id"]:
                                 print(1)
                                 await self.bot.hdb.add_pray(prayer_username, user[0]["user_id"])
+                                await ctx.add_reaction("🙏")
 
                     else:  # first ever pray
                         await self.bot.hdb.add_pray(prayer_username)
+                        await ctx.add_reaction("🙏")
 
-                    await ctx.add_reaction("🙏")
+
 
     @commands.Cog.listener()
     async def on_command(self, ctx):  # add user to database
