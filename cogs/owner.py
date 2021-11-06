@@ -47,9 +47,8 @@ class Owner(commands.Cog):
         for user in users:
             username = user["username"]
             pray_count = await self.bot.db.fetch("""SELECT COUNT(*) FROM pray_logs WHERE username = $1""", username)
-            print(username, pray_count)
-            # await self.bot.db.execute("""DELETE FROM users WHERE username = $1""", username)
-            # await self.bot.hdb.add_user(username=username)
+            await self.bot.db.execute("""DELETE FROM users WHERE username = $1""", username)
+            await self.bot.hdb.add_user(username=username, pray_count=pray_count)
 
         await ctx.channel.send("done")
 

@@ -13,8 +13,8 @@ class Database(commands.Cog):
     async def get_user_by_id(self, user_id):
         return await self.bot.db.fetch("SELECT * FROM users WHERE user_id = $1", user_id)
 
-    async def add_user(self, username=None, user_id=None):
-        await self.bot.db.execute("""INSERT INTO users (username, pray_count, user_id) VALUES ($1, 0, $2)""", username, user_id)
+    async def add_user(self, username=None, pray_count=None, user_id=None):
+        await self.bot.db.execute("""INSERT INTO users (username, pray_count, user_id) VALUES ($1, $2, $3)""", username, pray_count, user_id)
 
     async def add_pray(self, username, user_id=None):
         await self.bot.db.execute("""INSERT INTO pray_logs (username, timestamp, user_id) VALUES ($1, $2, $3)""", username,
