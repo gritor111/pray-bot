@@ -46,8 +46,8 @@ class Owner(commands.Cog):
 
         for user in users:
             username = user["username"]
-            user_dupes = await self.bot.db.fetch("""SELECT * FROM users WHERE username = $1""", username)
-            print(user_dupes)
+            pray_count = await self.bot.db.fetch("""SELECT COUNT(*) FROM pray_logs WHERE username = $1""", username)
+            print(username, pray_count)
             # await self.bot.db.execute("""DELETE FROM users WHERE username = $1""", username)
             # await self.bot.hdb.add_user(username=username)
 
