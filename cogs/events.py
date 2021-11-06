@@ -28,11 +28,9 @@ class Events(commands.Cog):
                     if last_pray:  # checking if user prayed before
                         if (datetime.datetime.now(datetime.timezone.utc) - last_pray[0]["timestamp"])\
                                 >= datetime.timedelta(minutes=2):
-                            print(user)
-                            if user[0]["user_id"]:
-                                print(1)
-                                await self.bot.hdb.add_pray(prayer_username, user[0]["user_id"])
-                                await ctx.add_reaction("🙏")
+                            print(user, datetime.datetime.utcnow(), last_pray["timestamp"])
+                            await self.bot.hdb.add_pray(prayer_username, user[0]["user_id"])
+                            await ctx.add_reaction("🙏")
 
                     else:  # first ever pray
                         await self.bot.hdb.add_pray(prayer_username)
@@ -43,7 +41,7 @@ class Events(commands.Cog):
     @commands.Cog.listener()
     async def on_command(self, ctx):  # add user to database
         user = await self.bot.hdb.get_user(ctx.author.name)
-        print(user)
+
         if not user:
             await self.bot.hdb.add_user(user_id=ctx.author.id)
 
