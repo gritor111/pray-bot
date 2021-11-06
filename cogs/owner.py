@@ -39,12 +39,15 @@ class Owner(commands.Cog):
 
         print(text)
 
-    @commands.command(name="fixduserdupes")
+    @commands.command(name="fixuserdupes")
     @commands.is_owner()
     async def fix_user_dupes(self, ctx):
-        users = await self.bot.db.fetch("""SELECT * FROM users""")
+        users = list(set(await self.bot.db.fetch("""SELECT * FROM users""")))
+
         for user in users:
-            print(user)
+            username = user["username"]
+            user_dupes = await self.bot.db.fetch("""SELECT * FROM users WHERE username = $1""", username)
+            print(user_dupes)
             # await self.bot.db.execute("""DELETE FROM users WHERE username = $1""", username)
             # await self.bot.hdb.add_user(username=username)
 
