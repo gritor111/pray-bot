@@ -21,7 +21,7 @@ class Events(commands.Cog):
                     user = await self.bot.hdb.get_user(prayer_username)
 
                     if not user:  # not in db
-                        await self.bot.hdb.add_user(prayer_username)
+                        await self.bot.hdb.add_user(username=prayer_username)
 
                     last_pray = await self.bot.hdb.get_last_pray_user(prayer_username)
 
@@ -35,8 +35,6 @@ class Events(commands.Cog):
                     else:  # first ever pray
                         await self.bot.hdb.add_pray(prayer_username)
                         await ctx.add_reaction("🙏")
-
-
 
     @commands.Cog.listener()
     async def on_command(self, ctx):  # add user to database

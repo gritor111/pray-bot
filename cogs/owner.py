@@ -39,6 +39,16 @@ class Owner(commands.Cog):
 
         print(text)
 
+    @commands.command(name="fixduserdupes")
+    @commands.is_owner()
+    async def fix_user_dupes(self, ctx):
+        users = list(set(await self.bot.db.fetch("""SELECT username FROM users""")))
+        for user in users:
+            username = user["username"]
+            self.bot.db.execute("""DELETE FROM users WHERE username = $1""", username)
+            self.bot.hdb.add_user(username=username)
+            print("done")
+
 
 def setup(bot):
     bot.add_cog(Owner(bot))
