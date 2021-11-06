@@ -10,8 +10,9 @@ class Owner(commands.Cog):
     @commands.command(name="fixpraydupes")
     @commands.is_owner()
     async def fix_pray_dupes(self, ctx):
-        users = self.bot.db.fetch("""SELECT * FROM users""")
+        users = self.bot.db.fetch("""SELECT username FROM users""")
         for user in users:
+            user = user["username"]
             print(user)
             # user_logs = await self.bot.db.fetch("""SELECT * FROM pray_logs WHERE username = $1 ORDER BY timestamp DESC""", user)
             #
