@@ -10,7 +10,7 @@ class Owner(commands.Cog):
     @commands.command(name="fixpraydupes")
     @commands.is_owner()
     async def fix_pray_dupes(self, ctx):
-        users = await self.bot.db.fetch("""SELECT username FROM users""")
+        users = list(set(await self.bot.db.fetch("""SELECT username FROM users""")))
         for user in users:
             user = user["username"]
             print(user)
