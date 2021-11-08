@@ -47,7 +47,7 @@ class Database(commands.Cog):
 
     async def get_weekly_lb_users(self):  # weekly
         return await self.bot.db.fetch(
-            """SELECT * FROM pray_logs WHERE timestamp > DATE_TRUNC('week', NOW()) - '1 day'::interval""")
+            """SELECT * FROM pray_logs WHERE timestamp > DATE_TRUNC('week', NOW())""")
 
     async def get_last_pray_user(self, user):
         return await self.bot.db.fetch(
