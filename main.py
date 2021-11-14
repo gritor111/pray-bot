@@ -22,5 +22,4 @@ for cog in cog_list:
     print(f'cog {cog} loaded')
 
 bot.hdb = bot.get_cog('Database')
-print(bot.get_user(289411794672418819), bot.fetch_user(289411794672418819))
 bot.run(os.getenv('TOKEN'))

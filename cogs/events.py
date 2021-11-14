@@ -70,7 +70,7 @@ class Events(commands.Cog):
         return False
 
     async def distribute_rewards(self, user, user_lvl):
-        louis_dm = self.bot.get_user(289411794672418819)
+        louis_dm = await self.bot.fetch_user(289411794672418819)
         await louis_dm.send(f"`owogive {user} {user_lvl*25000}`\n {user} levelled up to level {user_lvl}")
 
 
