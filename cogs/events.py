@@ -48,7 +48,7 @@ class Events(commands.Cog):
                             await self.distribute_rewards(user_id_username, user_lvl + 1)  # if id exists use it cus more secure and stuff
                             await self.bot.hdb.set_user_level(user_id_username, user_lvl + 1)
                             await self.bot.hdb.set_user_xp(user_id_username, 0)  # reset xp
-                            await ctx.channel.send("you levelled up poggerschampion")
+                            await ctx.channel.send(f"you levelled up to level {user_lvl + 1}")
                             return
 
                         await self.bot.hdb.set_user_xp(user[0]["user_id"] if user[0]["user_id"] else user[0]["username"], user_xp)  # give xp
