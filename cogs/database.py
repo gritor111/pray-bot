@@ -64,6 +64,13 @@ class Database(commands.Cog):
 
         await self.bot.db.execute("""UPDATE users SET current_xp = $1 WHERE username = $2""", xp, user)
 
+    async def set_user_level(self, user, lvl):
+        if isinstance(user, int):  # check if user is id
+            await self.bot.db.execute("""UPDATE users SET level = $1 WHERE user_id = $2""", lvl, user)
+            return
+
+        await self.bot.db.execute("""UPDATE users SET level = $1 WHERE username = $2""", lvl, user)
+
 
 def setup(bot):
     bot.add_cog(Database(bot))
