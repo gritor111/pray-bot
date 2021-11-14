@@ -40,7 +40,7 @@ class Events(commands.Cog):
 
                         xp = random.randint(10, 16) * 5
                         user_lvl = user[0]["level"]
-                        user_xp = user[0]["xp"] + xp
+                        user_xp = user[0]["current_xp"] + xp
                         level_up = self.check_level_up(user_xp, user_lvl)
 
                         if level_up:
@@ -49,7 +49,7 @@ class Events(commands.Cog):
 
                         await self.bot.hdb.set_user_xp(user["id"] if user["id"] else user["username"], user_xp)  # give xp
                         user = await self.bot.hdb.get_user(prayer_username)
-                        print(user[0]["xp"])
+                        print(user[0]["current_xp"])
 
     @commands.Cog.listener()
     async def on_command(self, ctx):  # add user to database
