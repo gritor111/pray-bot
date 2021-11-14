@@ -58,7 +58,7 @@ class Database(commands.Cog):
         await self.bot.db.execute("""UPDATE users SET user_id = $1 WHERE username = $2""", user_id, username)
 
     async def set_user_xp(self, user, xp):
-        if isinstance(int, user):  # check if user is id
+        if isinstance(user, int):  # check if user is id
             await self.bot.db.execute("""UPDATE users SET current_xp = $1 WHERE user_id = $2""", xp, user)
             return
 
