@@ -13,7 +13,7 @@ class Database(commands.Cog):
     async def get_user_by_id(self, user_id):
         return await self.bot.db.fetch("SELECT * FROM users WHERE user_id = $1", user_id)
 
-    async def add_user(self, username=None, pray_count=None, user_id=None):
+    async def add_user(self, username=None, pray_count=0, user_id=None):
         await self.bot.db.execute("""INSERT INTO users (username, pray_count, user_id) VALUES ($1, $2, $3)""", username, pray_count, user_id)
 
     async def add_pray(self, username, user_id=None):
@@ -54,8 +54,15 @@ class Database(commands.Cog):
             """SELECT * FROM pray_logs WHERE username = $1 ORDER BY timestamp DESC LIMIT 1""",
             user)
 
-    async def update_user(self, user_id, username):
+    async def update_user_id(self, user_id, username):
         await self.bot.db.execute("""UPDATE users SET user_id = $1 WHERE username = $2""", user_id, username)
+
+    async def set_user_xp(self, user, xp):
+        if isinstance(int, user):  # check if user is id
+            await self.bot.db.execute("""UPDATE users SET current_xp = $1 WHERE user_id = $2""", xp, user)
+            return
+
+        await self.bot.db.execute("""UPDATE users SET current_xp = $1 WHERE username = $2""", xp, user)
 
 
 def setup(bot):
