@@ -43,6 +43,7 @@ class Events(commands.Cog):
                         user_xp = user[0]["current_xp"] + xp
                         level_up = self.check_level_up(user_xp, user_lvl)
                         user_id_username = user[0]["user_id"] if user[0]["user_id"] else user[0]["username"]
+
                         if level_up:
                             await self.distribute_rewards(user_id_username, user_lvl + 1)  # if id exists use it cus more secure and stuff
                             await self.bot.hdb.set_user_level(user_id_username, user_lvl + 1)
@@ -73,7 +74,7 @@ class Events(commands.Cog):
     async def distribute_rewards(self, user, user_lvl):
         louis_dm = await self.bot.fetch_user(289411794672418819)
         if isinstance(user, int):
-            await louis_dm.send(f"`owogive <@{user}> 328726014`")
+            await louis_dm.send(f"`owogive <@{user}> {user_lvl * 25000}`")
             await louis_dm.send(f"{user} levelled up to level {user_lvl}")
             return
 
