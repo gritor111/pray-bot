@@ -8,7 +8,7 @@ class Personal(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command(name="profile", aliases=["p"])
+    @commands.command(name="profile", aliases=["p", "pp"])
     async def profile(self, ctx):
 
         user = await self.bot.hdb.get_user(ctx.author.name)
@@ -19,8 +19,8 @@ class Personal(commands.Cog):
 
         embed = discord.Embed(color=discord.Color.orange())
         embed.set_author(name=f"{ctx.author.name}'s profile", icon_url=str(ctx.author.avatar_url))
-        embed.add_field(name="**Level**", value="`" + user_lvl + "`")
-        embed.add_field(name="**Experience**", value=f"`[{user_xp}/{required_xp}]`\n{progress}")
+        embed.add_field(name="Level", value="`" + str(user_lvl) + "`")
+        embed.add_field(name="Experience", value=f"`[{user_xp}/{required_xp}]`\n{progress}")
 
         await ctx.channel.send(embed=embed)
 
