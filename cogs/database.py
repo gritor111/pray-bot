@@ -7,8 +7,11 @@ class Database(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    async def get_user(self, username):
-        return await self.bot.db.fetch("SELECT * FROM users WHERE username = $1", username)
+    async def get_user(self, user):
+        if isinstance(user[0], int):  # check if user is id
+            return await self.bot.db.fetch("SELECT * FROM users WHERE user_id = $1", user[0])
+
+        return await self.bot.db.fetch("SELECT * FROM users WHERE username = $1", user[1])
 
     async def get_user_by_id(self, user_id):
         return await self.bot.db.fetch("SELECT * FROM users WHERE user_id = $1", user_id)
