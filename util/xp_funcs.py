@@ -7,7 +7,7 @@ class Util():
         self.bot = bot
         self.XP_MULTI = 5
 
-    async def check_level_up(self, user_xp, level):
+    def check_level_up(self, user_xp, level):
         required_xp = 5000 + math.pow(level * self.XP_MULTI, 2)
 
         if user_xp >= required_xp:
