@@ -11,6 +11,14 @@ class Personal(commands.Cog):
     @commands.command(name="profile", aliases=["p", "pp"])
     async def profile(self, ctx):
 
+        # what the fuck is this
+        progress_bar_full_1 = "<Bar1Full:909875615367303279>"
+        progress_bar_full_2 = ""
+        progress_bar_full_3 = ""
+        progress_bar_empty_1 = ""
+        progress_bar_empty_2 = ""
+        progress_bar_empty_3 = ""
+
         user = await self.bot.hdb.get_user(ctx.author.name)
         user_lvl = user[0]["level"]
         user_xp = user[0]["current_xp"]
@@ -24,6 +32,7 @@ class Personal(commands.Cog):
         embed.add_field(name="Experience", value=f"`[{user_xp}/{required_xp}]`\n{progress}")
 
         await ctx.channel.send(embed=embed)
+        await ctx.channel.send(progress_bar_full_1)
 
 
 def setup(bot):
