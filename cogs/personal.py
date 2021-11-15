@@ -48,8 +48,8 @@ class Personal(commands.Cog):
         embed = discord.Embed(color=discord.Color.orange())
         embed.set_author(name=f"{ctx.author.name}'s profile", icon_url=str(ctx.author.avatar_url))
         embed.set_thumbnail(url=str(ctx.author.avatar_url))
-        embed.add_field(name="Level", value="`" + str(user_lvl) + "`")
-        embed.add_field(name="Experience", value=f"`[{user_xp}/{required_xp}]`\n{progress}")
+        embed.add_field(name="Level", value="`" + str(user_lvl) + "`", inline=False)
+        embed.add_field(name="Experience", value=f"`[{user_xp}/{required_xp}]`\n{progress}", inline=False)
 
         await ctx.channel.send(embed=embed)
 
