@@ -25,17 +25,20 @@ class Personal(commands.Cog):
 
         progress = ("■" * int((user_xp / required_xp) * 10)).ljust(10, "□")
         print(progress, len(progress))
-        progress = progress[1:-1]
+        progress = progress[2:-2]
 
         if "■" in progress:
             progress = progress_bar_full_1 + progress
 
+            if progress == "■" * 8:
+                progress += progress_bar_full_2
+
+            else:
+
+                progress += progress_bar_empty_3
+
         else:
             progress = progress_bar_empty_1 + progress + progress_bar_empty_3
-
-        if progress == "■" * 8:
-
-            progress += progress_bar_full_2
 
         progress = progress.replace("■", progress_bar_full_2)
         progress = progress.replace("□", progress_bar_empty_2)
