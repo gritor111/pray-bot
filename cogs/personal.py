@@ -22,7 +22,17 @@ class Personal(commands.Cog):
         user_lvl = user[0]["level"]
         user_xp = user[0]["current_xp"]
         required_xp = int(5000 + math.pow(user_lvl * self.bot.util.XP_MULTI, 2))
-        progress = ("■" * int((user_xp / required_xp) * 10)).ljust(10, "□")
+        progress = (progress_bar_full_2 * int((user_xp / required_xp) * 10)).ljust(8, progress_bar_empty_2)
+
+        if progress_bar_full_2 in progress:
+            progress = progress_bar_full_1 + progress
+
+        else:
+            progress = progress_bar_empty_1 + progress + progress_bar_empty_3
+
+        if progress == progress_bar_empty_2 * 8:
+
+            progress += progress_bar_full_2
 
         embed = discord.Embed(color=discord.Color.orange())
         embed.set_author(name=f"{ctx.author.name}'s profile", icon_url=str(ctx.author.avatar_url))
