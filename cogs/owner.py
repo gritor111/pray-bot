@@ -55,14 +55,14 @@ class Owner(commands.Cog):
                     user_sublist.append(user_dupe)
 
             highest_level = max(sorted(user_sublist, key=lambda user_row: user_row["level"], reverse=True))["level"]
-            print(user_sublist, highest_level)
-            #
-            # username = user["username"]
-            # pray_count = \
-            # (await self.bot.db.fetch("""SELECT COUNT(*) FROM pray_logs WHERE username = $1""", username))[0]["count"]
-            # await self.bot.db.execute("""DELETE FROM users WHERE username = $1""", username)
-            #
-            # await self.bot.hdb.add_user(username=username, pray_count=pray_count, xp=0, level=highest_level)
+            xp = max(sorted(user_sublist, key=lambda user_row: user_row["level"], reverse=True))["current_xp"]
+
+            username = user["username"]
+            pray_count = \
+            (await self.bot.db.fetch("""SELECT COUNT(*) FROM pray_logs WHERE username = $1""", username))[0]["count"]
+            await self.bot.db.execute("""DELETE FROM users WHERE username = $1""", username)
+
+            await self.bot.hdb.add_user(username=username, pray_count=pray_count, xp=xp, level=highest_level)
 
         await ctx.channel.send("done")
 
