@@ -40,6 +40,7 @@ class Personal(commands.Cog):
 
         progress = list(progress)
         progress[-1] = progress_bar_empty_3  # replace last char
+        progress = ''.join(progress)
 
         progress = progress.replace("■", progress_bar_full_2)
         progress = progress.replace("□", progress_bar_empty_2)
