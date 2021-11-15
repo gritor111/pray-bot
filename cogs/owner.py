@@ -45,8 +45,6 @@ class Owner(commands.Cog):
         users = await self.bot.db.fetch("""SELECT * FROM users""")
         users_no_dupes = list(set(await self.bot.db.fetch("""SELECT * FROM users""")))
 
-        sublists_users = []
-
         for user in users_no_dupes:
 
             user_sublist = []
