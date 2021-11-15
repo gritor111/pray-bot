@@ -31,7 +31,7 @@ class Personal(commands.Cog):
         embed.add_field(name="Experience", value=f"`[{user_xp}/{required_xp}]`\n{progress}")
 
         await ctx.channel.send(embed=embed)
-        await ctx.channel.send(progress_bar_full_1 + ' ' + progress_bar_full_2 + ' ' + progress_bar_empty_1 + ' ' + progress_bar_empty_2 + ' ' + progress_bar_empty_3)
+        await ctx.channel.send(progress_bar_full_1)
 
 
 def setup(bot):
