@@ -37,8 +37,8 @@ class Personal(commands.Cog):
 
             progress += progress_bar_full_2
 
-        progress.replace("■", progress_bar_full_2)
-        progress.replace("□", progress_bar_empty_2)
+        progress = progress.replace("■", progress_bar_full_2)
+        progress = progress.replace("□", progress_bar_empty_2)
 
         embed = discord.Embed(color=discord.Color.orange())
         embed.set_author(name=f"{ctx.author.name}'s profile", icon_url=str(ctx.author.avatar_url))
