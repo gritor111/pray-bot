@@ -24,16 +24,16 @@ class Personal(commands.Cog):
         required_xp = int(5000 + math.pow(user_lvl * self.bot.util.XP_MULTI, 2))
 
         progress = ("■" * int((user_xp / required_xp) * 10)).ljust(10, "□")
-        print(progress)
+        print(progress, len(progress))
         progress = progress[1:-1]
 
-        if progress_bar_full_2 in progress:
+        if "■" in progress:
             progress = progress_bar_full_1 + progress
 
         else:
             progress = progress_bar_empty_1 + progress + progress_bar_empty_3
 
-        if progress == progress_bar_empty_2 * 8:
+        if progress == "■" * 8:
 
             progress += progress_bar_full_2
 
