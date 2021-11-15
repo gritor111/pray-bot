@@ -10,7 +10,7 @@ class Personal(commands.Cog):
     @commands.command(name="profile", aliases=["p"])
     async def profile(self, ctx):
 
-        user = await self.bot.hdb.get_user([ctx.author.id, ctx.author.name])
+        user = await self.bot.hdb.get_user(ctx.author.name)
         user_lvl = user[0]["level"]
         user_xp = user[0]["current_xp"]
         required_xp = 5000 + math.pow(user_lvl * self.bot.util.XP_MULTI, 2)
