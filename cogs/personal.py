@@ -14,7 +14,7 @@ class Personal(commands.Cog):
         # what the fuck is this
         progress_bar_full_1 = "<a:Bar1Full:909895429540421672>"
         progress_bar_full_2 = "<a:Bar2Full:909895429322313850>"
-        progress_bar_empty_1 = "<:bar1Empty:909897948698128395>"
+        progress_bar_empty_1 = "<:Bar1Empty:909897948698128395>"
         progress_bar_empty_2 = "<:Bar2Empty:909895429217460265>"
         progress_bar_empty_3 = "<:Bar3Empty:909895429540429844> "
 
