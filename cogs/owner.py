@@ -42,14 +42,27 @@ class Owner(commands.Cog):
     @commands.command(name="fixuserdupes")
     @commands.is_owner()
     async def fix_user_dupes(self, ctx):
-        users = list(set(await self.bot.db.fetch("""SELECT * FROM users""")))
+        users = await self.bot.db.fetch("""SELECT * FROM users""")
+        users_no_dupes = list(set(await self.bot.db.fetch("""SELECT * FROM users""")))
 
-        for user in users:
-            username = user["username"]
-            pray_count = \
-            (await self.bot.db.fetch("""SELECT COUNT(*) FROM pray_logs WHERE username = $1""", username))[0]["count"]
-            await self.bot.db.execute("""DELETE FROM users WHERE username = $1""", username)
-            await self.bot.hdb.add_user(username=username, pray_count=pray_count)
+        sublists_users = []
+
+        for user in users_no_dupes:
+
+            user_sublist = []
+            for user_dupe in users:
+                if user_dupe["username"] == user["username"]:
+                    user_sublist.append(user_dupe)
+
+            highest_level = max(sorted(user_sublist, key=lambda user_row: user_row["level"], reverse=True))["level"]
+            print(user_sublist, highest_level)
+            #
+            # username = user["username"]
+            # pray_count = \
+            # (await self.bot.db.fetch("""SELECT COUNT(*) FROM pray_logs WHERE username = $1""", username))[0]["count"]
+            # await self.bot.db.execute("""DELETE FROM users WHERE username = $1""", username)
+            #
+            # await self.bot.hdb.add_user(username=username, pray_count=pray_count, xp=0, level=highest_level)
 
         await ctx.channel.send("done")
 

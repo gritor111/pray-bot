@@ -13,8 +13,9 @@ class Database(commands.Cog):
     async def get_user_by_id(self, user_id):
         return await self.bot.db.fetch("SELECT * FROM users WHERE user_id = $1", user_id)
 
-    async def add_user(self, username=None, pray_count=0, user_id=None):
-        await self.bot.db.execute("""INSERT INTO users (username, pray_count, user_id) VALUES ($1, $2, $3)""", username, pray_count, user_id)
+    async def add_user(self, username=None, pray_count=0, user_id=None, xp=0, level=0):
+        await self.bot.db.execute("""INSERT INTO users (username, pray_count, user_id, current_xp, level) \
+         VALUES ($1, $2, $3, $4, $5)""", username, pray_count, user_id, xp, level)
 
     async def add_pray(self, username, user_id=None):
         await self.bot.db.execute("""INSERT INTO pray_logs (username, timestamp, user_id) VALUES ($1, $2, $3)""", username,
