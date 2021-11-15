@@ -10,7 +10,7 @@ async def setup_db():
 
 
 prefix = os.getenv('PREFIX')
-bot = commands.Bot(command_prefix=prefix, owner_id=656373241144934420, case_insensitive=True)
+bot = commands.Bot(command_prefix=[prefix, prefix.upper()], owner_id=656373241144934420, case_insensitive=True)
 
 # set up db
 bot.loop.run_until_complete(setup_db())
