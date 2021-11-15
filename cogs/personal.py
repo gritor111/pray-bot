@@ -12,7 +12,7 @@ class Personal(commands.Cog):
     async def profile(self, ctx):
 
         # what the fuck is this
-        progress_bar_full_1 = "<Bar1Full:909875615367303279>"
+        progress_bar_full_1 = "<Bar1Full:866670690870493214>"
         progress_bar_full_2 = ""
         progress_bar_full_3 = ""
         progress_bar_empty_1 = ""
