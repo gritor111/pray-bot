@@ -20,4 +20,15 @@ class HelpCommand(commands.HelpCommand):
 
         await self.context.channel.send(embed=embed)
 
+    async def send_group_help(self, group):
+
+        embed = discord.Embed(color=discord.Color.teal())
+        embed.set_author(name=f"{group.name} Help", icon_url=str(self.context.author.avatar_url))
+
+        embed.add_field(name=f"{group.name} commands",
+                        value=' '.join(['`' + command.name + '`' for command in group.commands]))
+
+        await self.context.channel.send(embed=embed)
+
+
 
