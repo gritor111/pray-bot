@@ -9,6 +9,7 @@ class HelpCommand(commands.HelpCommand):
 
     async def send_bot_help(self, mapping):
 
+        ctx = self.context
         embed = discord.Embed(color=discord.Color.teal())
         embed.set_author(name="Bot Help", icon_url=str(self.context.author.avatar_url))
 
@@ -18,17 +19,29 @@ class HelpCommand(commands.HelpCommand):
                                 value=' '.join(['`' + command.name + '`' for command in mapping[cog]]),
                                 inline=False)
 
-        await self.context.channel.send(embed=embed)
+        await ctx.channel.send(embed=embed)
 
     async def send_group_help(self, group):
 
+        ctx = self.context
         embed = discord.Embed(color=discord.Color.teal())
-        embed.set_author(name=f"{group.name} Help", icon_url=str(self.context.author.avatar_url))
+        embed.set_author(name=f"{group.name.capitalize()} Help", icon_url=str(self.context.author.avatar_url))
 
-        embed.add_field(name=f"{group.name} commands",
+        embed.add_field(name=f"{group.name.capitalize()} commands",
                         value=' '.join(['`' + command.name + '`' for command in group.commands]))
 
-        await self.context.channel.send(embed=embed)
+        await ctx.channel.send(embed=embed)
+
+    async def send_command_help(self, command):
+
+        ctx = self.context
+        print(ctx.bot.user)
+        # embed = discord.Embed(color=discord.Color.teal())
+        # embed.set_author(name=f"{command.name.capitalize()} Usage",
+        #                  icon_url=str(self.context.author.avatar_url),
+        #                  description=f"{self.bot.}")
+
+
 
 
 
