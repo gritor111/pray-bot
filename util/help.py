@@ -8,14 +8,14 @@ class HelpCommand(commands.HelpCommand):
         super().__init__()
 
     async def send_bot_help(self, mapping):
-        print(mapping)
+
         embed = discord.Embed(color=discord.Color.teal())
         embed.set_author(name="Bot Help", icon_url=str(self.context.author.avatar_url))
 
         for cog in mapping:
-            print(cog)
-            embed.add_field(name=cog.qualified_name,
-                            value=' '.join(['`' + command.name + '`' for command in mapping[cog]]),
-                            inline=False)
+            if cog:
+                embed.add_field(name=cog.qualified_name,
+                                value=' '.join(['`' + command.name + '`' for command in mapping[cog]]),
+                                inline=False)
 
         await self.send(embed=embed)
