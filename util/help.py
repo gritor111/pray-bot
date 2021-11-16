@@ -18,4 +18,6 @@ class HelpCommand(commands.HelpCommand):
                                 value=' '.join(['`' + command.name + '`' for command in mapping[cog]]),
                                 inline=False)
 
-        await self.send(embed=embed)
+        await self.ctx.channel.send(embed=embed)
+
+
