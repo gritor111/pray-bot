@@ -8,7 +8,7 @@ class HelpCommand(commands.HelpCommand):
         super().__init__()
 
     async def send_bot_help(self, mapping):
-
+        print(mapping)
         embed = discord.Embed(color=discord.Color.teal())
         embed.set_author(name="Bot Help", icon_url=str(self.context.author.avatar_url))
 
