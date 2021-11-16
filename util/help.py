@@ -13,7 +13,7 @@ class HelpCommand(commands.HelpCommand):
         embed.set_author(name="Bot Help", icon_url=str(self.context.author.avatar_url))
 
         for cog in mapping:
-            if cog:
+            if cog and mapping[cog]:
                 embed.add_field(name=cog.qualified_name,
                                 value=' '.join(['`' + command.name + '`' for command in mapping[cog]]),
                                 inline=False)
