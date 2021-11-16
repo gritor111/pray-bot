@@ -9,9 +9,8 @@ class HelpCommand(commands.HelpCommand):
 
     async def send_bot_help(self, mapping):
 
-        ctx = self.get_destination()
         embed = discord.Embed(color=discord.Color.teal())
-        embed.set_author(name="Bot Help", icon_url=str(ctx.author.avatar_url))
+        embed.set_author(name="Bot Help", icon_url=str(self.context.author.avatar_url))
 
         for cog in mapping:
             embed.add_field(name=cog.name, value=' '.join(['`' + command.name + '`' for command in cog.get_commands()]),
