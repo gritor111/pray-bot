@@ -100,10 +100,19 @@ class Leaderboard(commands.Cog):
                 level_group = sorted(level_group, key=lambda user_info: user_info["current_xp"], reverse=True)
                 print(level_group)
                 new_level_leaderboard.extend(level_group)
-                print(new_level_leaderboard)
                 level_group = []
 
             level_group.append(user)
+
+        body = ''
+
+        for i, user in enumerate(new_level_leaderboard[:limit]):
+            body += f'\n\n`#{i + 1}` {user["username"]} - **level {user["level"]} {user["current_xp"]}xp**'
+
+        embed = discord.Embed(color=discord.Color.blue(), body=body)
+        embed.set_author(name="Top levels", icon_url=str(ctx.author.avatar_url))
+
+        await ctx.channel.send(embed=embed)
 
 
 def setup(bot):
