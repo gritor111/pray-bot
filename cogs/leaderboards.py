@@ -88,8 +88,8 @@ class Leaderboard(commands.Cog):
     @top.command(name="level", aliases=["xp"])
     async def top_xp(self, ctx, limit=5):
 
-        level_leaderboard = await self.bot.hdb.get_users()
-        print(level_leaderboard)
+        level_leaderboard = await self.bot.hdb.get_level_leaderboard()
+
         level_group = []
         new_level_leaderboard = []
 
