@@ -98,12 +98,12 @@ class Leaderboard(commands.Cog):
 
             if user_lvl != level_leaderboard[i - 1]["level"]:
                 level_group = sorted(level_group, key=lambda user_info: user_info["current_xp"], reverse=True)
+                print(level_group)
                 new_level_leaderboard.extend(level_group)
-                level_group.clear()
+                print(new_level_leaderboard)
+                level_group = []
 
             level_group.append(user)
-
-        print(new_level_leaderboard)
 
 
 def setup(bot):
