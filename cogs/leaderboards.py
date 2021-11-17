@@ -43,12 +43,15 @@ class Leaderboard(commands.Cog):
 
             embed.add_field(name='DAILY', value=f"`{ctx.prefix}top daily`\n", inline=False)
             embed.add_field(name='WEEKLY', value=f"`{ctx.prefix}top weekly`\n", inline=False)
-            embed.add_field(name='ALLTIME', value=f"`{ctx.prefix}top alltime`")
+            embed.add_field(name='ALLTIME', value=f"`{ctx.prefix}top alltime`", inline=False)
+            embed.add_field(name='LEVELS', value=f"`{ctx.prefix}top level`\n", inline=False)
 
             await ctx.channel.send(embed=embed)
 
     @top.command(name='daily', aliases=['d'])
     async def top_daily(self, ctx, limit=5):
+
+        daily_pray_logs = await self.bot.hdb.get_daily_lb_users()
 
         body = await self.get_top_body_time(ctx.author, daily_pray_logs, limit)
 
@@ -97,7 +100,6 @@ class Leaderboard(commands.Cog):
 
             if user_lvl != level_leaderboard[i - 1]["level"]:
                 level_group = sorted(level_group, key=lambda user_info: user_info["current_xp"], reverse=True)
-                print(level_group)
                 new_level_leaderboard.extend(level_group)
                 level_group = []
 
@@ -107,8 +109,6 @@ class Leaderboard(commands.Cog):
 
         for i, user in enumerate(new_level_leaderboard[:limit]):
             body += f'\n\n`#{i + 1}` {user["username"]} - **level {user["level"]} {user["current_xp"]}xp**'
-
-        print(body)
 
         embed = discord.Embed(color=discord.Color.blue(), description=body)
         embed.set_author(name="Levels Leaderboard", icon_url=str(ctx.author.avatar_url))
