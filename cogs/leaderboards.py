@@ -109,6 +109,8 @@ class Leaderboard(commands.Cog):
         for i, user in enumerate(new_level_leaderboard[:limit]):
             body += f'\n\n`#{i + 1}` {user["username"]} - **level {user["level"]} {user["current_xp"]}xp**'
 
+        print(body)
+
         embed = discord.Embed(color=discord.Color.blue(), body=body)
         embed.set_author(name="Top levels", icon_url=str(ctx.author.avatar_url))
 
