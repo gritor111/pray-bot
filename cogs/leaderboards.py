@@ -8,7 +8,7 @@ class Leaderboard(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    async def get_top_body(self, author, pray_logs, limit):
+    async def get_top_body_time(self, author, pray_logs, limit):
 
         body = ''
 
@@ -53,7 +53,7 @@ class Leaderboard(commands.Cog):
         daily_pray_logs = await self.bot.hdb.get_daily_lb_users()
         embed = discord.Embed(color=discord.Color.blue())
 
-        body = await self.get_top_body(ctx.author, daily_pray_logs, limit)
+        body = await self.get_top_body_time(ctx.author, daily_pray_logs, limit)
 
         embed.add_field(name='🙏 Daily pray leaderboard 🙏', value=body)
 
@@ -66,7 +66,7 @@ class Leaderboard(commands.Cog):
 
         embed = discord.Embed(color=discord.Color.blue())
 
-        body = await self.get_top_body(ctx.author, weekly_pray_logs, limit)
+        body = await self.get_top_body_time(ctx.author, weekly_pray_logs, limit)
 
         embed.add_field(name='🙏 Weekly pray leaderboard 🙏', value=body)
 
@@ -79,11 +79,31 @@ class Leaderboard(commands.Cog):
 
         embed = discord.Embed(color=discord.Color.blue())
 
-        body = await self.get_top_body(ctx.author, pray_logs, limit)
+        body = await self.get_top_body_time(ctx.author, pray_logs, limit)
 
         embed.add_field(name='🙏 All time pray leaderboard 🙏', value=body)
 
         await ctx.channel.send(embed=embed)
+
+    @top.command(name="level", aliases=["xp"])
+    async def top_xp(self, ctx, limit=5):
+
+        level_leaderboard = self.bot.hdb.get_level_leaderboard()
+
+        level_group = []
+        new_level_leaderboard = []
+
+        for i, user in enumerate(level_leaderboard):
+            user_lvl = user["level"]
+            if user_lvl != level_leaderboard[i - 1]["level"]:
+                level_group = sorted(level_group, key=lambda user_info: user_info["xp"], reverse=True)
+                new_level_leaderboard += level_group
+                level_group.clear()
+
+            level_group.append(user)
+
+        print(new_level_leaderboard)
+
 
 
 def setup(bot):

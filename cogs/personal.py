@@ -10,7 +10,7 @@ class Personal(commands.Cog):
 
     @commands.command(name="profile", aliases=["p", "pp"])
     async def profile(self, ctx):
-
+        
         # what the fuck is this
         progress_bar_full_1 = "<a:Bar1Full:909895429540421672>"
         progress_bar_full_2 = "<a:Bar2Full:909895429322313850>"

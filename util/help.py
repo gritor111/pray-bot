@@ -35,11 +35,13 @@ class HelpCommand(commands.HelpCommand):
     async def send_command_help(self, command):
 
         ctx = self.context
-        print(ctx.bot.user)
-        # embed = discord.Embed(color=discord.Color.teal())
-        # embed.set_author(name=f"{command.name.capitalize()} Usage",
-        #                  icon_url=str(self.context.author.avatar_url),
-        #                  description=f"{self.bot.}")
+
+        embed = discord.Embed(color=discord.Color.teal(),
+                              description=f"**Aliases: {' '.join(['`' + alias + '`' for alias in command.aliases])}"
+                                          f"\n{ctx.bot}")
+
+        embed.set_author(name=f"{command.name.capitalize()} Usage",
+                         icon_url=str(self.context.author.avatar_url))
 
 
 
