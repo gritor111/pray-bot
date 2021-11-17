@@ -95,11 +95,10 @@ class Leaderboard(commands.Cog):
 
         for i, user in enumerate(level_leaderboard):
             user_lvl = user["level"]
-            print(level_leaderboard[i - 1])
+
             if user_lvl != level_leaderboard[i - 1]["level"]:
                 level_group = sorted(level_group, key=lambda user_info: user_info["current_xp"], reverse=True)
-                print(level_group)
-                new_level_leaderboard += level_group
+                new_level_leaderboard.extend(level_group)
                 level_group.clear()
 
             level_group.append(user)
