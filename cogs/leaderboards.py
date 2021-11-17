@@ -50,12 +50,11 @@ class Leaderboard(commands.Cog):
     @top.command(name='daily', aliases=['d'])
     async def top_daily(self, ctx, limit=5):
 
-        daily_pray_logs = await self.bot.hdb.get_daily_lb_users()
-        embed = discord.Embed(color=discord.Color.blue())
-
         body = await self.get_top_body_time(ctx.author, daily_pray_logs, limit)
 
-        embed.add_field(name='🙏 Daily pray leaderboard 🙏', value=body)
+        embed = discord.Embed(color=discord.Color.blue(), description=body)
+
+        embed.set_author(name="Daily Leaderboard", icon_url=str(ctx.author.avatar_url))
 
         await ctx.channel.send(embed=embed)
 
@@ -64,11 +63,11 @@ class Leaderboard(commands.Cog):
 
         weekly_pray_logs = await self.bot.hdb.get_weekly_lb_users()
 
-        embed = discord.Embed(color=discord.Color.blue())
-
         body = await self.get_top_body_time(ctx.author, weekly_pray_logs, limit)
 
-        embed.add_field(name='🙏 Weekly pray leaderboard 🙏', value=body)
+        embed = discord.Embed(color=discord.Color.blue(), description=body)
+
+        embed.set_author(name="Weekly Leaderboard", icon_url=str(ctx.author.avatar_url))
 
         await ctx.channel.send(embed=embed)
 
@@ -77,11 +76,11 @@ class Leaderboard(commands.Cog):
 
         pray_logs = await self.bot.hdb.get_pray_logs()
 
-        embed = discord.Embed(color=discord.Color.blue())
-
         body = await self.get_top_body_time(ctx.author, pray_logs, limit)
 
-        embed.add_field(name='🙏 All time pray leaderboard 🙏', value=body)
+        embed = discord.Embed(color=discord.Color.blue(), description=body)
+
+        embed.set_author(name="All Time Leaderboard", icon_url=str(ctx.author.avatar_url))
 
         await ctx.channel.send(embed=embed)
 
@@ -111,8 +110,8 @@ class Leaderboard(commands.Cog):
 
         print(body)
 
-        embed = discord.Embed(color=discord.Color.blue(), body=body)
-        embed.set_author(name="Top levels", icon_url=str(ctx.author.avatar_url))
+        embed = discord.Embed(color=discord.Color.blue(), description=body)
+        embed.set_author(name="Levels Leaderboard", icon_url=str(ctx.author.avatar_url))
 
         await ctx.channel.send(embed=embed)
 
