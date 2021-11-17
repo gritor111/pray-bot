@@ -72,7 +72,7 @@ class Database(commands.Cog):
 
         await self.bot.db.execute("""UPDATE users SET level = $1 WHERE username = $2""", lvl, user)
 
-    async def get_users(self):
+    async def get_level_leaderboard(self):
         return await self.bot.db.fetch("""SELECT * FROM users ORDER BY level DESC""")
 
 
