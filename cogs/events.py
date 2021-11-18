@@ -65,11 +65,11 @@ class Events(commands.Cog):
 
     @commands.Cog.listener()
     async def on_user_update(self, before, after):
-
+        print(before.name, after.name)
         if before.name != after.name:  # user has changed username
             user = await self.bot.hdb.get_user(before.name)
             if user:
-                await self.bot.hdb.update_user_username(before.name, after.name)
+                await self.bot.hdb.update_user_username(after.name, before.name)
 
 
 def setup(bot):
