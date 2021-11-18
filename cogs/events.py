@@ -58,11 +58,18 @@ class Events(commands.Cog):
         user = await self.bot.hdb.get_user(ctx.author.name)
 
         if not user:
-            await self.bot.hdb.add_user(user_id=ctx.author.id)
+            await self.bot.hdb.add_user(user_id=ctx.author.id, username=ctx.author.name)
 
         if not user[0]["user_id"]:
             await self.bot.hdb.update_user_id(ctx.author.id, ctx.author.name)
 
+    @commands.Cog.listener()
+    async def on_user_update(self, before, after):
+
+        if before.name != after.name:  # user has changed username
+            user = await self.bot.hdb.get_user(before.name)
+            if user:
+                await self.bot.hdb.update_user_username(before.name, after.name)
 
 
 def setup(bot):

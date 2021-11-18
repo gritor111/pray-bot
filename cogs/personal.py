@@ -24,7 +24,6 @@ class Personal(commands.Cog):
         required_xp = int(5000 + math.pow(user_lvl * self.bot.util.XP_MULTI, 2))
 
         progress = ("■" * int((user_xp / required_xp) * 10)).ljust(10, "□")
-        print(progress, len(progress))
 
         #  i made this logic at like 1am dont judge me
 
