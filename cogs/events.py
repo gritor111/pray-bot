@@ -71,6 +71,11 @@ class Events(commands.Cog):
             if user and user[0]["user_id"] == after.id:
                 await self.bot.hdb.update_user_username(after.name, before.name)
 
+    @commands.Cog.listener()
+    async def on_member_join(self, member):
+        print(f"added {member.name} to the database")
+        await self.bot.hdb.add_user(username=member.name, user_id=member.id)
+
 
 def setup(bot):
     bot.add_cog(Events(bot))
