@@ -29,7 +29,7 @@ class Events(commands.Cog):
 
                     if not last_pray:  # checking if its the user first pray
                         await self.bot.hdb.add_pray(prayer_username)
-                        await ctx.add_reaction("🙏")
+                        await ctx.add_reaction("<:prayge:910989570299002900>")
                         return  # no xp hehehhe
 
                     if (datetime.datetime.now(datetime.timezone.utc) - last_pray[0]["timestamp"])\
