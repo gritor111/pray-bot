@@ -73,7 +73,7 @@ class Owner(commands.Cog):
                 continue
 
             user = await self.bot.hdb.get_user(member.name)
-            print(user)
+
             if not user:
                 await self.bot.hdb.add_user(username=member.name, user_id=member.id)
                 continue
@@ -82,7 +82,6 @@ class Owner(commands.Cog):
                 continue
 
             else:  # doesnt have id
-                print(user)
                 await self.bot.hdb.update_user_id(member.id, member.name)
                 continue
 
