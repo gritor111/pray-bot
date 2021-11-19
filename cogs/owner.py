@@ -73,13 +73,11 @@ class Owner(commands.Cog):
                 continue
 
             user = await self.bot.db.fetch("""SELECT * FROM users WHERE user_id = $1""", member.id)
-            print(user)
             if user:  # already has id
                 continue
 
-            user = await self.bot.db.fetch("""SELECT * FROM users WHERE username = $1""", member.name)
-            print(user)
-            if user:  # doesnt have id
+            else:  # doesnt have id
+                print(user)
                 await self.bot.hdb.update_user_id(member.id, member.name)
                 continue
 
