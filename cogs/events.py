@@ -38,7 +38,12 @@ class Events(commands.Cog):
                         await self.bot.hdb.add_pray(prayer_username, user[0]["user_id"])
                         await ctx.add_reaction("<:prayge:910989570299002900>")
 
-                        xp = random.randint(10, 16) * 5
+                        rand_xp_multi = 3
+
+                        if datetime.datetime.today().weekday() > 4:  # weekend
+                            rand_xp_multi = 5
+
+                        xp = random.randint(10, 16) * rand_xp_multi
                         user_lvl = user[0]["level"]
                         user_xp = user[0]["current_xp"] + xp
                         level_up = self.bot.util.check_level_up(user_xp, user_lvl)
