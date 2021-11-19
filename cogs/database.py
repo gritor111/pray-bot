@@ -79,6 +79,5 @@ class Database(commands.Cog):
         return await self.bot.db.fetch("""SELECT * FROM users ORDER BY level DESC""")
 
 
-
 def setup(bot):
     bot.add_cog(Database(bot))

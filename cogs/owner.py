@@ -67,7 +67,24 @@ class Owner(commands.Cog):
     @commands.command(name='fixuserids')
     @commands.is_owner()
     async def fix_user_ids(self, ctx):
-        pass
+        members = ctx.guild.members
+        for member in members:
+            if member.bot:  # its a bot )<
+                continue
+
+            user = await self.bot.db.fetch("""SELECT * FROM users WHERE user_id = $1""", member.id)
+            if user:  # already has id
+                continue
+
+            user = await self.bot.db.fetch("""SELECT * FROM users WHERE username = $1""", member.name)
+            if user:  # doesnt have id
+                await self.bot.hdb.update_user_id(member.id, member.name)
+                continue
+
+            # user isnt in database
+            await self.bot.hdb.add_user(username=member.name, user_id=member.id)
+
+        await ctx.channel.send("synced user ids")
 
 
 def setup(bot):
