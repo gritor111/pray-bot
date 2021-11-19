@@ -55,7 +55,7 @@ class Activity(commands.Cog):
         if member:
             user = member
 
-        alltime_prays = (await self.bot.hdb.get_user(user.name))[0]["pray_count"]
+        alltime_prays = (await self.bot.hdb.get_user(user.id))["pray_count"]
 
         embed = discord.Embed(title=f"{user.name}'s All Time pray count: {alltime_prays}", color=discord.Color.green())
 
