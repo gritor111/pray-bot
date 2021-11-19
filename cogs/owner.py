@@ -72,17 +72,15 @@ class Owner(commands.Cog):
             if member.bot:  # its a bot )<
                 continue
 
-            user = await self.bot.db.fetch("""SELECT * FROM users WHERE user_id = $1""", member.id)
-            if user:  # already has id
+            user = await self.bot.db.fetch("""SELECT * FROM users WHERE username = $1""", member.name)
+            if user[0]["user_id"]:  # already has id
                 continue
 
-            else:  # doesnt have id
+            elif user and not user[0]["user_id"]:  # doesnt have id
                 print(user)
                 await self.bot.hdb.update_user_id(member.id, member.name)
                 continue
 
-            print(user)
-            # user isnt in database
             await self.bot.hdb.add_user(username=member.name, user_id=member.id)
 
         await ctx.channel.send("synced user ids")
