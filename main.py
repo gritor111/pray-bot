@@ -13,7 +13,7 @@ intents.members = True
 
 prefix = os.getenv('PREFIX')
 bot = commands.Bot(command_prefix=[prefix, prefix.upper()], owner_id=656373241144934420, case_insensitive=True,
-                   help_command=help.HelpCommand())
+                   help_command=help.HelpCommand(), intents=intents)
 
 # set up db
 bot.loop.run_until_complete(setup_db())
