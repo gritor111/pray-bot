@@ -68,7 +68,7 @@ class Events(commands.Cog):
         print(before.name, after.name)
         if before.name != after.name:  # user has changed username
             user = await self.bot.hdb.get_user(before.name)
-            if user:
+            if user and user[0]["user_id"] == after.id:
                 await self.bot.hdb.update_user_username(after.name, before.name)
 
 

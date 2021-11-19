@@ -48,6 +48,21 @@ class Activity(commands.Cog):
 
         await ctx.channel.send(embed=embed)
 
+    @commands.command(name="alltime", aliases=["at"])
+    async def alltime(self, ctx, *, member: discord.Member = None):
+        user = ctx.author
+
+        if member:
+            user = member
+
+        user = self.bot.hdb.get_user(user.name)
+
+        alltime_prays = user[0]["pray_count"]
+
+        embed = discord.Embed(title=f"{user.name}'s All Time pray count: {alltime_prays}", color=discord.Color.green())
+
+        await ctx.channel.send(embed=embed)
+
 
 def setup(bot):
     bot.add_cog(Activity(bot))
