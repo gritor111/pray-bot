@@ -19,8 +19,8 @@ class Personal(commands.Cog):
         progress_bar_empty_3 = "<:Bar3Empty:909895429540429844> "
 
         user = await self.bot.hdb.get_user(ctx.author.id)
-        user_lvl = user[0]["level"]
-        user_xp = user[0]["current_xp"]
+        user_lvl = user["level"]
+        user_xp = user["current_xp"]
         required_xp = int(5000 + math.pow(user_lvl * self.bot.util.XP_MULTI, 2))
 
         progress = ("■" * int((user_xp / required_xp) * 10)).ljust(10, "□")

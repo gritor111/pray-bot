@@ -28,6 +28,7 @@ class Events(commands.Cog):
                             members_with_username.append(member)
 
                     print(len(members_with_username))
+
                     if len(members_with_username) <= 1:  # no users with the same username
                         user = await self.bot.hdb.get_user(members_with_username[0].id)
 
