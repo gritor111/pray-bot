@@ -68,12 +68,12 @@ class Owner(commands.Cog):
     @commands.is_owner()
     async def fix_user_ids(self, ctx):
         members = ctx.guild.members
-        print(members)
         for member in members:
             if member.bot:  # its a bot )<
                 continue
 
             user = await self.bot.hdb.get_user(member.name)
+            print(user)
             if not user:
                 await self.bot.hdb.add_user(username=member.name, user_id=member.id)
                 continue
