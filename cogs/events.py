@@ -79,7 +79,9 @@ class Events(commands.Cog):
     @commands.Cog.listener()
     async def on_member_join(self, member):
         print(f"added {member.name} to the database")
-        await self.bot.hdb.add_user(username=member.name, user_id=member.id)
+        user = self.bot.hdb.get_user(member.name)
+        if not user:
+            await self.bot.hdb.add_user(username=member.name, user_id=member.id)
 
 
 def setup(bot):
