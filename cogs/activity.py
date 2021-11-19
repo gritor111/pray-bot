@@ -55,7 +55,7 @@ class Activity(commands.Cog):
         if member:
             user = member
 
-        user = self.bot.hdb.get_user(user.name)
+        user = await self.bot.hdb.get_user(user.name)
 
         alltime_prays = user[0]["pray_count"]
 
