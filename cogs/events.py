@@ -36,7 +36,7 @@ class Events(commands.Cog):
                             >= datetime.timedelta(minutes=2):
 
                         await self.bot.hdb.add_pray(prayer_username, user[0]["user_id"])
-                        await ctx.add_reaction("🙏")
+                        await ctx.add_reaction("<:prayge:910989570299002900>")
 
                         xp = random.randint(10, 16) * 5
                         user_lvl = user[0]["level"]
