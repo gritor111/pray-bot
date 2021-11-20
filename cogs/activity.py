@@ -65,7 +65,7 @@ class Activity(commands.Cog):
             progress = progress.replace("□", progress_bar_empty_2)
 
             embed.description += f"\n{user.name} needs to pray __{200 - weekly_pray_count}__" \
-                                 f" to louis to get the **Active Prayer** role\n{progress}"
+                                 f" to louis to get the <@&911639659430432838> role\n{progress}"
 
         await ctx.channel.send(embed=embed)
 

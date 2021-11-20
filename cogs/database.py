@@ -14,7 +14,7 @@ class Database(commands.Cog):
         await self.bot.db.execute("""INSERT INTO users (username, pray_count, user_id, current_xp, level) \
          VALUES ($1, $2, $3, $4, $5)""", username, pray_count, user_id, xp, level)
 
-    async def add_pray(self, username, user_id=None):
+    async def add_pray(self, username, user_id):
         await self.bot.db.execute("""INSERT INTO pray_logs (username, timestamp, user_id) VALUES ($1, $2, $3)""", username,
                                   datetime.datetime.utcnow(), user_id)
 

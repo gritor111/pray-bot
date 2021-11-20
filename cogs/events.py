@@ -1,4 +1,4 @@
-from discord.ext import commands
+from discord.ext import commands, tasks
 import datetime
 import random
 import math
@@ -22,18 +22,21 @@ class Events(commands.Cog):
                     prayer_username = ctx.content.split('**')[1].split('🙏 | ')[1]
                     members = ctx.guild.members
                     members_with_username = []
+                    member = 0  # just so i can use it later on
 
                     for member in members:
                         if member.name == prayer_username:
                             members_with_username.append(member)
 
                     if len(members_with_username) <= 1:  # no users with the same username
-                        user = await self.bot.hdb.get_user(members_with_username[0].id)
+                        member = members_with_username[0]
+                        user = await self.bot.hdb.get_user(member.id)
 
                     else:  # users with the same username ;-;
                         async for message in ctx.channel.history(10):
                             if message.author.name == prayer_username:
-                                user = await self.bot.hdb.get_user(message.author.id)
+                                member = message.author
+                                user = await self.bot.hdb.get_user(member.id)
 
                     last_pray = await self.bot.hdb.get_last_pray_user(user["user_id"])
 
@@ -70,7 +73,16 @@ class Events(commands.Cog):
 
                         await self.bot.hdb.set_user_xp(user_id, user_xp)  # give xp
 
-                        # handle activewell
+                        # handle active
+
+                        weekly_pray_count = len(self.bot.hdb.get_count_by_time(user["user_id"], "week"))
+                        active_role = ctx.guild.get_role(911639659430432838)
+                        if weekly_pray_count == 200:
+                            await member.add_roles(active_role)
+                            await ctx.channel.send(f"send help i need a good message for this also {member} got <@&911639659430432838>")
+
+                        elif weekly_pray_count < 200 and active_role in member.roles:
+                            await member.remove_roles(active_role)
 
     @commands.Cog.listener()
     async def on_command(self, ctx):  # add user to database
@@ -94,6 +106,11 @@ class Events(commands.Cog):
         # else:
         #     await self.bot.hdb.update_user_id(member.id, member.name)
         # TODO add support for user who left and rejoined
+
+    # @tasks.task
+    # async def update_active(self):
+
+
 
 
 def setup(bot):
