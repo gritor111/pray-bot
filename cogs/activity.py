@@ -85,7 +85,6 @@ class Activity(commands.Cog):
 
     @commands.command(name="alltime", aliases=["at"])
     async def alltime(self, ctx, *, member: discord.Member = None):
-        print(ctx.guild.id)
         user = ctx.author
 
         if member:

@@ -88,7 +88,5 @@ class Owner(commands.Cog):
         await ctx.channel.send("synced user ids")
 
 
-
-
 def setup(bot):
     bot.add_cog(Owner(bot))
