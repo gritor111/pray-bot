@@ -10,6 +10,8 @@ class Events(commands.Cog):
         self.bot = bot
         self.XP_MULTI = 5
 
+        self.update_active.start()
+
     @commands.Cog.listener()
     async def on_message(self, ctx):
 
@@ -109,6 +111,7 @@ class Events(commands.Cog):
 
     @tasks.loop(minutes=5)
     async def update_active(self):
+        print("i did the thing")
         users = await self.bot.db.fetch("""SELECT * from users""")
         active_role = (await self.bot.get_guild(888467716732747827)).get_role(911639659430432838)
         for user in users:
