@@ -116,14 +116,13 @@ class Events(commands.Cog):
         members = guild.fetch_members()
 
         async for member in members:
-
+            print(member, weekly_pray_count)
             if member.bot:
                 continue
 
             weekly_pray_count = len(await self.bot.hdb.get_count_by_time(member, "week"))
-            print(member, weekly_pray_count)
+
             if weekly_pray_count < 200 and (active_role in member.roles):
-                print(1)
                 await member.remove_roles(active_role)
 
             elif weekly_pray_count >= 200 and (active_role not in member.roles):
