@@ -116,13 +116,14 @@ class Events(commands.Cog):
         guild = await self.bot.fetch_guild(888467716732747827)
         active_role = guild.get_role(911639659430432838)
         for user in users:
-            weekly_pray_count = len(await self.bot.hdb.get_count_by_time(user, "week"))
+            member = guild.get_user(user["user_id"])
+            weekly_pray_count = len(await self.bot.hdb.get_count_by_time(member, "week"))
 
-            if weekly_pray_count < 200 and active_role in user.roles:
-                await user.remove_roles(active_role)
+            if weekly_pray_count < 200 and active_role in member.roles:
+                await member.remove_roles(active_role)
 
-            elif weekly_pray_count >= 200 and active_role not in user.roles:
-                await user.add_roles(active_role)
+            elif weekly_pray_count >= 200 and active_role not in member.roles:
+                await member.add_roles(active_role)
 
 
 
