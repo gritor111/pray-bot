@@ -75,7 +75,7 @@ class Events(commands.Cog):
 
                         # handle active
 
-                        weekly_pray_count = len(await self.bot.hdb.get_count_by_time(user, "week"))
+                        weekly_pray_count = len(await self.bot.hdb.get_count_by_time(member, "week"))
                         active_role = ctx.guild.get_role(911639659430432838)
                         if weekly_pray_count == 200:
                             await member.add_roles(active_role)
