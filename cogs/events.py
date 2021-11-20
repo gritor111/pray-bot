@@ -114,6 +114,7 @@ class Events(commands.Cog):
         print("i did the thing")
         guild = await self.bot.fetch_guild(888467716732747827)
         active_role = guild.get_role(911639659430432838)
+        print("aaaaaaaaaaaaaaaaaaaaaaaaaaa")
         for member in guild.members:
             print(13)
             if member.bot:
