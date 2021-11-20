@@ -35,13 +35,10 @@ class Events(commands.Cog):
                             if message.author.name == prayer_username:
                                 user = await self.bot.hdb.get_user(message.author.id)
 
-                    if not user:  # not in db
-                        await self.bot.hdb.add_user(username=prayer_username)
-
                     last_pray = await self.bot.hdb.get_last_pray_user(user["user_id"])
 
                     if not last_pray:  # checking if its the user first pray
-                        await self.bot.hdb.add_pray(prayer_username)
+                        await self.bot.hdb.add_pray(prayer_username, user["user_id"])
                         await ctx.add_reaction("<:prayge:910989570299002900>")
                         return  # no xp hehehhe
 
