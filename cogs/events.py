@@ -116,7 +116,7 @@ class Events(commands.Cog):
         print(dir(guild))
         members = guild.fetch_members()
         print(members)
-        for member in members:
+        async for member in members:
             print(13)
             if member.bot:
                 continue
