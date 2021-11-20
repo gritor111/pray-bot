@@ -115,6 +115,9 @@ class Events(commands.Cog):
         guild = await self.bot.fetch_guild(888467716732747827)
         active_role = guild.get_role(911639659430432838)
         for member in guild.members:
+            print(13)
+            if member.bot:
+                continue
 
             weekly_pray_count = len(await self.bot.hdb.get_count_by_time(member, "week"))
             print(member, weekly_pray_count)
