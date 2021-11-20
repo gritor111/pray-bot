@@ -113,7 +113,8 @@ class Events(commands.Cog):
     async def update_active(self):
         print("i did the thing")
         users = await self.bot.db.fetch("""SELECT * from users""")
-        active_role = (await self.bot.get_guild(888467716732747827)).get_role(911639659430432838)
+        guild = await self.bot.get_guild(888467716732747827)
+        active_role = guild.get_role(911639659430432838)
         for user in users:
             weekly_pray_count = len(await self.bot.hdb.get_count_by_time(user, "week"))
 
