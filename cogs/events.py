@@ -27,8 +27,6 @@ class Events(commands.Cog):
                         if member.name == prayer_username:
                             members_with_username.append(member)
 
-                    print(len(members_with_username))
-
                     if len(members_with_username) <= 1:  # no users with the same username
                         user = await self.bot.hdb.get_user(members_with_username[0].id)
 
@@ -53,6 +51,8 @@ class Events(commands.Cog):
                         await self.bot.hdb.add_pray(prayer_username, user["user_id"])
                         await ctx.add_reaction("<:prayge:910989570299002900>")
 
+                        # handle xp
+
                         rand_xp_multi = 3
 
                         if datetime.datetime.today().weekday() > 4:  # weekend
@@ -72,6 +72,8 @@ class Events(commands.Cog):
                             return
 
                         await self.bot.hdb.set_user_xp(user_id, user_xp)  # give xp
+
+                        # handle activewell
 
     @commands.Cog.listener()
     async def on_command(self, ctx):  # add user to database
