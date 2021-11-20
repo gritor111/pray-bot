@@ -110,9 +110,15 @@ class Events(commands.Cog):
     @tasks.loop(minutes=5)
     async def update_active(self):
         users = await self.bot.db.fetch("""SELECT * from users""")
+        active_role = (await self.bot.get_guild(888467716732747827)).get_role(911639659430432838)
         for user in users:
             weekly_pray_count = len(await self.bot.hdb.get_count_by_time(user["user_id"], "week"))
 
+            if weekly_pray_count < 200 and active_role in user.roles:
+                await user.remove_roles(active_role)
+
+            elif weekly_pray_count >= 200 and active_role not in user.roles:
+                await user.add_roles(active_role)
 
 
 
