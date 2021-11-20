@@ -34,7 +34,7 @@ class Activity(commands.Cog):
 
         embed = discord.Embed(color=discord.Color.green())
         embed.set_author(name=user, icon_url=str(user.avatar_url))
-        embed.description = f"**{user.name}** has prayed to louis **{weekly_pray_count} times in the last week"
+        embed.description = f"**{user.name}** has prayed to louis **{weekly_pray_count}** times in the last week"
 
         if weekly_pray_count < 200:
             progress_bar_full_1 = "<a:Bar1Full:909895429540421672>"
