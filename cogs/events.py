@@ -75,7 +75,7 @@ class Events(commands.Cog):
 
                         # handle active
 
-                        weekly_pray_count = len(self.bot.hdb.get_count_by_time(user["user_id"], "week"))
+                        weekly_pray_count = len(await self.bot.hdb.get_count_by_time(user["user_id"], "week"))
                         active_role = ctx.guild.get_role(911639659430432838)
                         if weekly_pray_count == 200:
                             await member.add_roles(active_role)
@@ -107,8 +107,11 @@ class Events(commands.Cog):
         #     await self.bot.hdb.update_user_id(member.id, member.name)
         # TODO add support for user who left and rejoined
 
-    # @tasks.task
-    # async def update_active(self):
+    @tasks.loop(minutes=5)
+    async def update_active(self):
+        users = await self.bot.db.fetch("""SELECT * from users""")
+        for user in users:
+            weekly_pray_count = len(await self.bot.hdb.get_count_by_time(user["user_id"], "week"))
 
 
 
