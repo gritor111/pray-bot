@@ -113,6 +113,7 @@ class Events(commands.Cog):
     async def update_active(self):
         guild = await self.bot.fetch_guild(888467716732747827)
         active_role = guild.get_role(911639659430432838)
+        print(guild)
         members = guild.members
         print(members)
         for member in members:
