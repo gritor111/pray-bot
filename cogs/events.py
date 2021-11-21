@@ -2,7 +2,7 @@ from discord.ext import commands, tasks
 import datetime
 import random
 import math
-
+import discord
 
 class Events(commands.Cog):
 
@@ -81,7 +81,7 @@ class Events(commands.Cog):
                         active_role = ctx.guild.get_role(911639659430432838)
                         if weekly_pray_count == 200:
                             await member.add_roles(active_role)
-                            await ctx.channel.send(f"send help i need a good message for this also {member} got <@&911639659430432838>")
+                            await ctx.channel.send(embed=discord.Embed(description=f"send help i need a good message for this also {member} got <@&911639659430432838>"))
 
                         elif weekly_pray_count < 200 and active_role in member.roles:
                             await member.remove_roles(active_role)
