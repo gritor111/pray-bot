@@ -28,8 +28,6 @@ class Activity(commands.Cog):
         if member:
             user = member
 
-        print(user)
-
         weekly_pray_count = len(await self.bot.hdb.get_count_by_time(user, '1 week'))
 
         embed = discord.Embed(color=discord.Color.green())
@@ -65,7 +63,7 @@ class Activity(commands.Cog):
             progress = progress.replace("□", progress_bar_empty_2)
 
             embed.description += f"\n{user.name} needs to pray __{200 - weekly_pray_count}__" \
-                                 f" to louis to get the <@&911639659430432838> role\n{progress}"
+                                 f" more times to louis to get the <@&911639659430432838> role\n{progress}"
 
         await ctx.channel.send(embed=embed)
 

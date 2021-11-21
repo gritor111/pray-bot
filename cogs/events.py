@@ -126,7 +126,7 @@ class Events(commands.Cog):
                 await member.remove_roles(active_role)
 
             elif weekly_pray_count >= 200 and (active_role not in member.roles):
-                print(2)
+                print("added active role to ", member)
                 await member.add_roles(active_role)
 
 
