@@ -38,7 +38,7 @@ class Database(commands.Cog):
 
     async def get_lb_users_by_time(self, timetype):
         return await self.bot.db.fetch(
-            """SELECT * FROM pray_logs WHERE timestamp > timestamp - ('1' || $1)::interval""", timetype)
+            """SELECT * FROM pray_logs WHERE timestamp > timestamp - ($1::interval)::timestamp""", timetype)
 
     async def get_pray_logs(self):
         return await self.bot.db.fetch("""SELECT * FROM pray_logs""")
