@@ -41,7 +41,7 @@ class Activity(commands.Cog):
             progress_bar_empty_2 = "<:Bar2Empty:909895429217460265>"
             progress_bar_empty_3 = "<:Bar3Empty:909895429540429844>"
 
-            progress = ("■" * int((weekly_pray_count / 200) * 10)).ljust(10, "□")
+            progress = ("■" * int((weekly_pray_count / 300) * 10)).ljust(10, "□")
 
             #  i made this logic at like 1am dont judge me
 
