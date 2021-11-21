@@ -116,6 +116,7 @@ class Events(commands.Cog):
         members = guild.fetch_members()
 
         async for member in members:
+            print(member)
             if member.bot:
                 continue
 
