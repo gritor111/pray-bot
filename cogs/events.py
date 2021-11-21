@@ -70,7 +70,9 @@ class Events(commands.Cog):
                             await self.bot.util.distribute_rewards(user_id, user_lvl + 1)  # if id exists use it cus more secure and stuff
                             await self.bot.hdb.set_user_level(user_id, user_lvl + 1)
                             await self.bot.hdb.set_user_xp(user_id, 0)  # reset xp
-                            await ctx.channel.send(f"{user['username']} levelled up to level {user_lvl + 1}")
+                            await ctx.channel.send(f"Congratulations <@{member.id}>! You prayed your way to level"
+                                                   f" {user_lvl + 1} and you have earned yourself {(user_lvl + 1) * 25000}."
+                                                   f"\nPlease allow 24 hours for !Louis to pay the money <:prayge:910989570299002900>")
                             return
 
                         await self.bot.hdb.set_user_xp(user_id, user_xp)  # give xp
@@ -81,7 +83,7 @@ class Events(commands.Cog):
                         active_role = ctx.guild.get_role(911639659430432838)
                         if weekly_pray_count == 200:
                             await member.add_roles(active_role)
-                            await ctx.channel.send(embed=discord.Embed(description=f"send help i need a good message for this also {member} got <@&911639659430432838>"))
+                            await ctx.channel.send(embed=discord.Embed(description=f"Congratulations, {member.name} got the Active prayer role 🎉"))
 
                         elif weekly_pray_count < 200 and active_role in member.roles:
                             await member.remove_roles(active_role)
