@@ -94,6 +94,19 @@ class Activity(commands.Cog):
 
         await ctx.channel.send(embed=embed)
 
+    @commands.command(name="count", aliases=["c"])
+    async def count(self, ctx, *, member: discord.Member = None):
+        user = ctx.author
+
+        if member:
+            user = member
+
+        prays = len(await self.bot.hdb.get_count_by_time(user, "day"))
+
+        embed = discord.Embed(title=f"{user.name}'s count: {prays}", color=discord.Color.green())
+
+        await ctx.channel.send(embed=embed)
+
 
 def setup(bot):
     bot.add_cog(Activity(bot))
