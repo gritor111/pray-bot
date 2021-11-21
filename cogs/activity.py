@@ -101,7 +101,7 @@ class Activity(commands.Cog):
         if member:
             user = member
 
-        prays = len(await self.bot.hdb.get_count_by_time(user, "day"))
+        prays = len(await self.bot.hdb.get_count_by_time(user, "1 day"))
 
         embed = discord.Embed(title=f"{user.name}'s count: {prays}", color=discord.Color.green())
 
