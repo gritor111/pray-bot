@@ -123,10 +123,10 @@ class Events(commands.Cog):
             weekly_pray_count = len(await self.bot.hdb.get_count_by_time(member, "week"))
             print(member, weekly_pray_count)
 
-            if weekly_pray_count < 200 and (active_role in member.roles):
+            if weekly_pray_count < 300 and (active_role in member.roles):
                 await member.remove_roles(active_role)
 
-            elif weekly_pray_count >= 200 and (active_role not in member.roles):
+            elif weekly_pray_count >= 300 and (active_role not in member.roles):
                 print("added active role to ", member)
                 await member.add_roles(active_role)
 
