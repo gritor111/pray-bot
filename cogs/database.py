@@ -26,7 +26,7 @@ class Database(commands.Cog):
 
     async def get_count_by_time(self, user, timetype):
         return await self.bot.db.fetch(
-            """SELECT * FROM pray_logs WHERE timestamp > timestamp - INTERVAL $1 AND user_id = $2""",
+            """SELECT * FROM pray_logs WHERE timestamp > timestamp - ('1' || $1)::interval AND user_id = $2""",
             timetype, user.id)
 
     async def get_daily_count(self, user):

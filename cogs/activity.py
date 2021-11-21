@@ -28,7 +28,7 @@ class Activity(commands.Cog):
         if member:
             user = member
 
-        weekly_pray_count = len(await self.bot.hdb.get_count_by_time(user, '1 week'))
+        weekly_pray_count = len(await self.bot.hdb.get_count_by_time(user, 'week'))
 
         embed = discord.Embed(color=discord.Color.green())
         embed.set_author(name=user, icon_url=str(user.avatar_url))
@@ -74,7 +74,7 @@ class Activity(commands.Cog):
         if member:
             user = member
 
-        daily_pray_count = len(await self.bot.hdb.get_count_by_time(user, '1 month'))
+        daily_pray_count = len(await self.bot.hdb.get_count_by_time(user, 'month'))
 
         embed = discord.Embed(title=f"{user.name}'s monthly pray count: {daily_pray_count}",
                               color=discord.Color.green())
@@ -101,7 +101,7 @@ class Activity(commands.Cog):
         if member:
             user = member
 
-        prays = len(await self.bot.hdb.get_count_by_time(user, "1 day"))
+        prays = len(await self.bot.hdb.get_count_by_time(user, "day"))
 
         embed = discord.Embed(title=f"{user.name}'s count: {prays}", color=discord.Color.green())
 
