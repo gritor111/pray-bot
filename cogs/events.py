@@ -73,6 +73,12 @@ class Events(commands.Cog):
                             await ctx.channel.send(f"Congratulations <@{member.id}>! You prayed your way to level"
                                                    f" {user_lvl + 1} and you have earned yourself {(user_lvl + 1) * 25000}."
                                                    f"\nPlease allow 24 hours for !Louis to pay the money <:prayge:910989570299002900>")
+                            if (user_lvl + 1) % 5 == 0:
+                                guild = ctx.guild
+                                str_role = f"Level {user_lvl + 1}"
+                                level_role = discord.utils.get(guild.roles, str_role)
+                                await member.add_roles(level_role)
+
                             return
 
                         await self.bot.hdb.set_user_xp(user_id, user_xp)  # give xp
