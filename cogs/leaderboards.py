@@ -16,22 +16,23 @@ class Leaderboard(commands.Cog):
 
         for pray in pray_logs:
 
-            if pray['username'] not in sorted_users:
-                sorted_users[pray['username']] = 1
+            if pray['user_id'] not in sorted_users:
+                sorted_users[pray['user_id']] = 1
                 continue
 
-            sorted_users[pray['username']] += 1
+            sorted_users[pray['user_id']] += 1
 
         sorted_users = dict(sorted(sorted_users.items(), key=lambda user: user[1], reverse=True))  # sort by pray_count
 
-        for i, user in enumerate(dict(itertools.islice(sorted_users.items(), limit))):
-            body += f'\n\n`#{i + 1}` {user} - **{sorted_users[user]}**'
+        for i, user_id in enumerate(dict(itertools.islice(sorted_users.items(), limit))):
+            member = await self.bot.fetch_user(user_id)
+            body += f'\n\n`#{i + 1}` {member.name} - **{sorted_users[user_id]}**'
 
-        if author.name not in dict(itertools.islice(sorted_users.items(), limit)):
-            if author.name not in sorted_users:
-                sorted_users[author.name] = 0
+        if author.id not in dict(itertools.islice(sorted_users.items(), limit)):
+            if author.id not in sorted_users:
+                sorted_users[author.id] = 0
 
-            body += f"\n**⋮**\n`#{list(sorted_users.keys()).index(author.name) + 1}` {author.name} - **{sorted_users[author.name]}**"
+            body += f"\n**⋮**\n`#{list(sorted_users.keys()).index(author.id) + 1}` {author.name} - **{sorted_users[author.id]}**"
 
         return body
 
