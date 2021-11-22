@@ -76,7 +76,7 @@ class Events(commands.Cog):
                             if (user_lvl + 1) % 5 == 0:
                                 guild = ctx.guild
                                 str_role = f"Level {user_lvl + 1}"
-                                level_role = discord.utils.get(guild.roles, str_role)
+                                level_role = discord.utils.get(guild.roles, name=str_role)
                                 await member.add_roles(level_role)
 
                             return
