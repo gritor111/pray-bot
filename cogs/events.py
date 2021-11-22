@@ -87,11 +87,11 @@ class Events(commands.Cog):
 
                         weekly_pray_count = len(await self.bot.hdb.get_count_by_time(member, "week"))
                         active_role = ctx.guild.get_role(911639659430432838)
-                        if weekly_pray_count == 200:
+                        if weekly_pray_count == 300:
                             await member.add_roles(active_role)
                             await ctx.channel.send(embed=discord.Embed(description=f"Congratulations, {member.name} got the Active prayer role 🎉"))
 
-                        elif weekly_pray_count < 200 and active_role in member.roles:
+                        elif weekly_pray_count < 300 and active_role in member.roles:
                             await member.remove_roles(active_role)
 
     @commands.Cog.listener()
