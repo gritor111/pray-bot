@@ -34,7 +34,7 @@ class Activity(commands.Cog):
         embed.set_author(name=user, icon_url=str(user.avatar_url))
         embed.description = f"**{user.name}** has prayed to louis **{weekly_pray_count}** times in the last week"
 
-        if weekly_pray_count < 200:
+        if weekly_pray_count < 300:
             progress_bar_full_1 = "<a:Bar1Full:909895429540421672>"
             progress_bar_full_2 = "<a:Bar2Full:909895429322313850>"
             progress_bar_empty_1 = "<:Bar1Empty:909897948698128395>"
