@@ -22,11 +22,11 @@ class Leaderboard(commands.Cog):
                     continue
 
                 sorted_users[pray['user_id']] += 1
-        print(sorted_users)
+
         sorted_users = dict(sorted(sorted_users.items(), key=lambda user: user[1], reverse=True))  # sort by pray_count
-        print(sorted_users)
+
         for i, user_id in enumerate(dict(itertools.islice(sorted_users.items(), limit))):
-            print(user_id)
+
             member = await self.bot.fetch_user(user_id)
             body += f'\n\n`#{i + 1}` {member.name} - **{sorted_users[user_id]}**'
 
