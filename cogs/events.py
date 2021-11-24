@@ -10,7 +10,7 @@ class Events(commands.Cog):
         self.bot = bot
         self.XP_MULTI = 5
 
-        self.update_active.start()
+        # self.update_active.start()
 
     @commands.Cog.listener()
     async def on_message(self, ctx):
