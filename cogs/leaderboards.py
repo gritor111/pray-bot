@@ -16,11 +16,12 @@ class Leaderboard(commands.Cog):
 
         for pray in pray_logs:
 
-            if pray['user_id'] not in sorted_users:
-                sorted_users[pray['user_id']] = 1
-                continue
+            if pray['user_id']:  # check theres id
+                if pray['user_id'] not in sorted_users:
+                    sorted_users[pray['user_id']] = 1
+                    continue
 
-            sorted_users[pray['user_id']] += 1
+                sorted_users[pray['user_id']] += 1
         print(sorted_users)
         sorted_users = dict(sorted(sorted_users.items(), key=lambda user: user[1], reverse=True))  # sort by pray_count
         print(sorted_users)
