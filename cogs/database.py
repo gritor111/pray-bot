@@ -34,7 +34,7 @@ class Database(commands.Cog):
             """SELECT * FROM pray_logs WHERE timestamp > CURRENT_DATE::timestamp AND user_id = $1""", user.id)
 
     async def get_daily_lb_users(self):
-        return await self.bot.db.fetch("""SELECT * FROM pray_logs WHERE timestamp > CURRENT_DATE::timestamp""")
+        return await self.bot.db.fetch("""SELECT * FROM pray_logs WHERE timestamp > CURRENT_DATE::timestamp IS NOT NULL""")
 
     async def get_lb_users_by_time(self, timetype):
         return await self.bot.db.fetch(
@@ -45,7 +45,7 @@ class Database(commands.Cog):
 
     async def get_weekly_lb_users(self):  # weekly
         return await self.bot.db.fetch(
-            """SELECT * FROM pray_logs WHERE timestamp > DATE_TRUNC('week', NOW())""")
+            """SELECT * FROM pray_logs WHERE timestamp > DATE_TRUNC('week', NOW()) AND user_id IS NOT NULL""")
 
     async def get_last_pray_user(self, user_id):
         return await self.bot.db.fetch(

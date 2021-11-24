@@ -1,9 +1,10 @@
 CREATE TABLE IF NOT EXISTS users (
   username VARCHAR NOT NULL,
   pray_count INT DEFAULT 0,
-  user_id BIGINT
-  current_xp INT
-  level INT 
+  user_id BIGINT,
+  current_xp INT,
+  level INT,
+  unclaimed_prays INT DEFAULT 0
 )
 
 CREATE TABLE IF NOT EXISTS pray_logs (

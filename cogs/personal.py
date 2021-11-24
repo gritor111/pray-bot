@@ -52,6 +52,9 @@ class Personal(commands.Cog):
 
         await ctx.channel.send(embed=embed)
 
+    # @commands.command(name="claim")
+    # async def claim(self, ctx):
+    #     unclaimed_prays = self.bot.hdb.get_unclaimed_prays(ctx.author.id)
 
 def setup(bot):
     bot.add_cog(Personal(bot))
