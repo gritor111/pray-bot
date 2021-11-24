@@ -8,7 +8,7 @@ class Activity(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command()
+    @commands.command(name="daily", aliases=["d"])
     async def daily(self, ctx, *, member: discord.Member = None):
         user = ctx.author
 
@@ -21,7 +21,7 @@ class Activity(commands.Cog):
 
         await ctx.channel.send(embed=embed)
 
-    @commands.command(name="active", aliases=["weekly", "week"])
+    @commands.command(name="active", aliases=["weekly", "week", "w"])
     async def weekly(self, ctx, *, member: discord.Member = None):
         user = ctx.author
 
