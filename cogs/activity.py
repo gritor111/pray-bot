@@ -21,51 +21,51 @@ class Activity(commands.Cog):
 
         await ctx.channel.send(embed=embed)
 
-    @commands.command(name="active", aliases=["weekly", "week", "w"])
-    async def weekly(self, ctx, *, member: discord.Member = None):
-        user = ctx.author
-
-        if member:
-            user = member
-
-        weekly_pray_count = len(await self.bot.hdb.get_count_by_time(user, 'week'))
-
-        embed = discord.Embed(color=discord.Color.green())
-        embed.set_author(name=user, icon_url=str(user.avatar_url))
-        embed.description = f"**{user.name}** has prayed to louis **{weekly_pray_count}** times in the last week"
-
-        if weekly_pray_count < 300:
-            progress_bar_full_1 = "<a:Bar1Full:909895429540421672>"
-            progress_bar_full_2 = "<a:Bar2Full:909895429322313850>"
-            progress_bar_empty_1 = "<:Bar1Empty:909897948698128395>"
-            progress_bar_empty_2 = "<:Bar2Empty:909895429217460265>"
-            progress_bar_empty_3 = "<:Bar3Empty:909895429540429844>"
-
-            progress = ("■" * int((weekly_pray_count / 300) * 10)).ljust(10, "□")
-
-            #  i made this logic at like 1am dont judge me
-
-            if "■" in progress:
-                progress = list(progress)
-                progress[0] = progress_bar_full_1
-                progress = ''.join(progress)
-
-            else:
-                progress = list(progress)
-                progress[0] = progress_bar_empty_1  # replace first char
-                progress = ''.join(progress)
-
-            progress = list(progress)
-            progress[-1] = progress_bar_empty_3  # replace last char
-            progress = ''.join(progress)
-
-            progress = progress.replace("■", progress_bar_full_2)
-            progress = progress.replace("□", progress_bar_empty_2)
-
-            embed.description += f"\n{user.name} needs to pray __{300 - weekly_pray_count}__" \
-                                 f" more times to louis to get the <@&911639659430432838> role\n{progress}"
-
-        await ctx.channel.send(embed=embed)
+    # @commands.command(name="active", aliases=["weekly", "week", "w"])
+    # async def weekly(self, ctx, *, member: discord.Member = None):
+    #     user = ctx.author
+    #
+    #     if member:
+    #         user = member
+    #
+    #     weekly_pray_count = len(await self.bot.hdb.get_count_by_time(user, 'week'))
+    #
+    #     embed = discord.Embed(color=discord.Color.green())
+    #     embed.set_author(name=user, icon_url=str(user.avatar_url))
+    #     embed.description = f"**{user.name}** has prayed to louis **{weekly_pray_count}** times in the last week"
+    #
+    #     if weekly_pray_count < 300:
+    #         progress_bar_full_1 = "<a:Bar1Full:909895429540421672>"
+    #         progress_bar_full_2 = "<a:Bar2Full:909895429322313850>"
+    #         progress_bar_empty_1 = "<:Bar1Empty:909897948698128395>"
+    #         progress_bar_empty_2 = "<:Bar2Empty:909895429217460265>"
+    #         progress_bar_empty_3 = "<:Bar3Empty:909895429540429844>"
+    #
+    #         progress = ("■" * int((weekly_pray_count / 300) * 10)).ljust(10, "□")
+    #
+    #         #  i made this logic at like 1am dont judge me
+    #
+    #         if "■" in progress:
+    #             progress = list(progress)
+    #             progress[0] = progress_bar_full_1
+    #             progress = ''.join(progress)
+    #
+    #         else:
+    #             progress = list(progress)
+    #             progress[0] = progress_bar_empty_1  # replace first char
+    #             progress = ''.join(progress)
+    #
+    #         progress = list(progress)
+    #         progress[-1] = progress_bar_empty_3  # replace last char
+    #         progress = ''.join(progress)
+    #
+    #         progress = progress.replace("■", progress_bar_full_2)
+    #         progress = progress.replace("□", progress_bar_empty_2)
+    #
+    #         embed.description += f"\n{user.name} needs to pray __{300 - weekly_pray_count}__" \
+    #                              f" more times to louis to get the <@&911639659430432838> role\n{progress}"
+    #
+    #     await ctx.channel.send(embed=embed)
 
     @commands.command()
     async def monthly(self, ctx, *, member: discord.Member = None):
