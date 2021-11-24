@@ -57,8 +57,8 @@ class Events(commands.Cog):
 
                         rand_xp_multi = 3
 
-                        if datetime.datetime.today().weekday() > 4:  # weekend
-                            rand_xp_multi = 5
+                        # if datetime.datetime.today().weekday() > 4:  # weekend
+                        #     rand_xp_multi = 5
 
                         xp = random.randint(10, 16) * rand_xp_multi
                         user_lvl = user["level"]
