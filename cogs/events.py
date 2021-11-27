@@ -55,7 +55,7 @@ class Events(commands.Cog):
 
                         # handle xp
 
-                        rand_xp_multi = 3
+                        rand_xp_multi = 2
 
                         # if datetime.datetime.today().weekday() > 4:  # weekend
                         #     rand_xp_multi = 5
