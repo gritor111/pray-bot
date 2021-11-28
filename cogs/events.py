@@ -85,14 +85,14 @@ class Events(commands.Cog):
 
                         # handle active
 
-                        # weekly_pray_count = len(await self.bot.hdb.get_count_by_time(member, "week"))
-                        # active_role = ctx.guild.get_role(911639659430432838)
-                        # if weekly_pray_count == 300:
-                        #     await member.add_roles(active_role)
-                        #     await ctx.channel.send(embed=discord.Embed(description=f"Congratulations, {member.name} got the Active prayer role 🎉"))
-                        #
-                        # elif weekly_pray_count < 300 and active_role in member.roles:
-                        #     await member.remove_roles(active_role)
+                        weekly_pray_count = len(await self.bot.hdb.get_count_by_time(member, "week"))
+                        active_role = ctx.guild.get_role(911639659430432838)
+                        if weekly_pray_count == 500:
+                            await member.add_roles(active_role)
+                            await ctx.channel.send(embed=discord.Embed(description=f"Congratulations, {member.name} got the Active prayer role 🎉"))
+
+                        elif weekly_pray_count < 500 and active_role in member.roles:
+                            await member.remove_roles(active_role)
 
     @commands.Cog.listener()
     async def on_command(self, ctx):  # add user to database
@@ -117,24 +117,24 @@ class Events(commands.Cog):
         #     await self.bot.hdb.update_user_id(member.id, member.name)
         # TODO add support for user who left and rejoined
 
-    # @tasks.loop(minutes=5)
-    # async def update_active(self):
-    #     guild = await self.bot.fetch_guild(888467716732747827)
-    #     active_role = guild.get_role(911639659430432838)
-    #     members = guild.fetch_members()
-    #
-    #     async for member in members:
-    #
-    #         if member.bot:
-    #             continue
-    #
-    #         weekly_pray_count = len(await self.bot.hdb.get_count_by_time(member, "week"))
-    #
-    #         if weekly_pray_count < 300 and (active_role in member.roles):
-    #             await member.remove_roles(active_role)
-    #
-    #         elif weekly_pray_count >= 300 and (active_role not in member.roles):
-    #             await member.add_roles(active_role)
+    @tasks.loop(minutes=5)
+    async def update_active(self):
+        guild = await self.bot.fetch_guild(888467716732747827)
+        active_role = guild.get_role(911639659430432838)
+        members = guild.fetch_members()
+
+        async for member in members:
+
+            if member.bot:
+                continue
+
+            weekly_pray_count = len(await self.bot.hdb.get_count_by_time(member, "week"))
+
+            if weekly_pray_count < 500 and (active_role in member.roles):
+                await member.remove_roles(active_role)
+
+            elif weekly_pray_count >= 500 and (active_role not in member.roles):
+                await member.add_roles(active_role)
 
 
 def setup(bot):
