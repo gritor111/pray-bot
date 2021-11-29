@@ -127,7 +127,7 @@ class Events(commands.Cog):
 
             if member.bot:
                 continue
-
+            print(member)
             weekly_pray_count = len(await self.bot.hdb.get_count_by_time(member, "week"))
 
             if weekly_pray_count < 500 and (active_role in member.roles):
