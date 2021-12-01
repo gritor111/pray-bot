@@ -10,6 +10,9 @@ class Database(commands.Cog):
     async def get_user(self, user_id):
         return await self.bot.db.fetchrow("""SELECT * FROM users WHERE user_id = $1""", user_id)
 
+    async def get_user_by_name(self, username):
+        return await self.bot.db.fetchrow("""SELECT * FROM users WHERE username = $1""", username)
+
     async def add_user(self, username=None, pray_count=0, user_id=None, xp=0, level=0):
         await self.bot.db.execute("""INSERT INTO users (username, pray_count, user_id, current_xp, level) \
          VALUES ($1, $2, $3, $4, $5)""", username, pray_count, user_id, xp, level)
