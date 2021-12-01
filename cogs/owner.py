@@ -51,7 +51,7 @@ class Owner(commands.Cog):
             for user_dupe in users:
                 if user_dupe["username"] == user["username"]:
                     user_sublist.append(user_dupe)
-
+            print(user_sublist)
             highest_level = max(sorted(user_sublist, key=lambda user_row: user_row["level"], reverse=True))["level"]
             xp = max(sorted(user_sublist, key=lambda user_row: user_row["level"], reverse=True))["current_xp"]
 
