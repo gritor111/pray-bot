@@ -72,7 +72,7 @@ class Owner(commands.Cog):
             if member.bot:  # its a bot )<
                 continue
 
-            user = await self.bot.hdb.get_user(member.id)
+            user = await self.bot.hdb.get_user(member.name)
             print(user)
 
             if not user:
