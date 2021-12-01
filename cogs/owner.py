@@ -55,12 +55,12 @@ class Owner(commands.Cog):
             highest_level = max(sorted(user_sublist, key=lambda user_row: user_row["level"], reverse=True))["level"]
             xp = max(sorted(user_sublist, key=lambda user_row: user_row["level"], reverse=True))["current_xp"]
 
-            username = user["username"]
+            user_id = user["id"]
             pray_count = \
-            (await self.bot.db.fetch("""SELECT COUNT(*) FROM pray_logs WHERE username = $1""", username))[0]["count"]
-            await self.bot.db.execute("""DELETE FROM users WHERE username = $1""", username)
+            (await self.bot.db.fetch("""SELECT COUNT(*) FROM pray_logs WHERE user_id = $1""", user_id))[0]["count"]
+            await self.bot.db.execute("""DELETE FROM users WHERE username = $1""", user["username"])
 
-            await self.bot.hdb.add_user(username=username, pray_count=pray_count, xp=xp, level=highest_level)
+            await self.bot.hdb.add_user(username=user["username"], pray_count=pray_count, xp=xp, level=highest_level)
 
         await ctx.channel.send("done")
 
@@ -73,6 +73,7 @@ class Owner(commands.Cog):
                 continue
 
             user = await self.bot.hdb.get_user(member.id)
+            print(user)
 
             if not user:
                 await self.bot.hdb.add_user(username=member.name, user_id=member.id)
