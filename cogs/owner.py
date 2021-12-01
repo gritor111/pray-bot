@@ -51,9 +51,10 @@ class Owner(commands.Cog):
             for user_dupe in users:
                 if user_dupe["username"] == user["username"]:
                     user_sublist.append(user_dupe)
+
             print(user_sublist)
-            highest_level = max(sorted(user_sublist, key=lambda user_row: user_row["level"], reverse=True))["level"]
-            xp = max(sorted(user_sublist, key=lambda user_row: user_row["level"], reverse=True))["current_xp"]
+            highest_level = sorted(user_sublist, key=lambda user_row: user_row["level"], reverse=True)[0]["level"]
+            xp = sorted(user_sublist, key=lambda user_row: user_row["level"], reverse=True)[0]["current_xp"]
 
             user_id = user["user_id"]
             pray_count = (await self.bot.db.fetch("""SELECT COUNT(*) FROM pray_logs WHERE user_id = $1""", user_id))[0]["count"]
