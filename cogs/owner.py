@@ -79,7 +79,7 @@ class Owner(commands.Cog):
                 await self.bot.hdb.add_user(username=member.name, user_id=member.id)
                 continue
 
-            if user[0]["user_id"]:  # already has id
+            if user["user_id"]:  # already has id
                 continue
 
             else:  # doesnt have id
