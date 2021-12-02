@@ -91,7 +91,7 @@ class Owner(commands.Cog):
 
     @commands.command("syncuserprays")
     @commands.is_owner()
-    async def sync_user_prays(self):
+    async def sync_user_prays(self, ctx):
         users = self.bot.db.fetch("""SELECT * FROM users""")
         for user in users:
             if user["user_id"]:
@@ -99,6 +99,7 @@ class Owner(commands.Cog):
                 pray_count = await self.bot.db.fetchrow("""SELECT COUNT(*) FROM pray_logs WHERE user_id = $1""", user["user_id"])
                 await self.bot.db.execute("""UPDATE users SET pray_count = $1 WHERE user_id = $2""", pray_count, user["user_id"])
 
+        await ctx.channel.send("synced user prays")
 
 def setup(bot):
     bot.add_cog(Owner(bot))
