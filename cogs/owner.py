@@ -92,7 +92,7 @@ class Owner(commands.Cog):
     @commands.command("syncuserprays")
     @commands.is_owner()
     async def sync_user_prays(self, ctx):
-        users = self.bot.db.fetch("""SELECT * FROM users""")
+        users = await self.bot.db.fetch("""SELECT * FROM users""")
         for user in users:
             if user["user_id"]:
                 print(user)
