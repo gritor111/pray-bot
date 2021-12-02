@@ -108,7 +108,7 @@ class Owner(commands.Cog):
         users = await self.bot.db.fetch("""SELECT * FROM users""")
         print(1)
         for user in users:
-            prays_without_id = await self.bot.db.fetch("""SELECT COUNT(*) FROM pray_logs WHERE username = $1 AND user_id IS NULL""")
+            prays_without_id = await self.bot.db.fetch("""SELECT COUNT(*) FROM pray_logs WHERE username = $1 AND user_id IS NULL""", user["username"])
             pray_count = (await self.bot.db.fetch("""SELECT * FROM users WHERE user_id = $1""", user["user_id"]))[0]["pray_count"]
             await self.bot.db.execute("""UPDATE users SET pray_count = $1 WHERE user_id = $2""", pray_count + prays_without_id, user["user_id"])
 
