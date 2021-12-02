@@ -115,5 +115,15 @@ class Owner(commands.Cog):
 
         print("done.")
 
+    @commands.command("syncnullprays")
+    @commands.is_owner()
+    async def sync_null_prays(self, ctx):
+        users = await self.bot.db.fetch("""SELECT * FROM users""")
+        for user in users:
+            if user["user_id"]:
+                await self.bot.db.execute("""UPDATE pray_logs SET user_id = $1 WHERE username = $2 AND user_id IS NULL""", user["user_id"], user["username"])
+
+        await ctx.channel.send("synced null prays")
+
 def setup(bot):
     bot.add_cog(Owner(bot))
