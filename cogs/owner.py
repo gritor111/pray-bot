@@ -57,7 +57,7 @@ class Owner(commands.Cog):
             xp = sorted(user_sublist, key=lambda user_row: user_row["level"], reverse=True)[0]["current_xp"]
 
             user_id = user["user_id"]
-            pray_count = (await self.bot.db.fetch("""SELECT COUNT(*) FROM pray_logs WHERE user_id = $1""", user_id))[0]["count"]
+            pray_count = (await self.bot.db.fetch("""SELECT COUNT(*) FROM pray_logs WHERE user_id = $1""", user_id))[0]
             await self.bot.db.execute("""DELETE FROM users WHERE username = $1""", user["username"])
 
             await self.bot.hdb.add_user(username=user["username"], pray_count=pray_count, xp=xp, level=highest_level)
@@ -89,6 +89,15 @@ class Owner(commands.Cog):
 
         await ctx.channel.send("synced user ids")
 
+    @commands.command("syncuserprays")
+    @commands.is_owner()
+    async def sync_user_prays(self):
+        users = self.bot.db.fetch("""SELECT * FROM users""")
+        for user in users:
+            if user["user_id"]:
+                print(user)
+                pray_count = await self.bot.db.fetchrow("""SELECT COUNT(*) FROM pray_logs WHERE user_id = $1""", user["user_id"])
+                await self.bot.db.execute("""UPDATE users SET pray_count = $1 WHERE user_id = $2""", pray_count, user["user_id"])
 
 
 def setup(bot):
