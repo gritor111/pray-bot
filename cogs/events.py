@@ -41,7 +41,7 @@ class Events(commands.Cog):
                                 member = message.author
                                 user = await self.bot.hdb.get_user(member.id)
 
-                    last_pray = await self.bot.hdb.get_last_pray_user(user["user_id"])
+                    last_pray = await self.bot.hdb.get_last_pray_user(member.id)
 
                     if not last_pray:  # checking if its the user first pray
                         await self.bot.hdb.add_pray(prayer_username, user["user_id"])

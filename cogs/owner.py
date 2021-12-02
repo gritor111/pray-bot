@@ -101,16 +101,17 @@ class Owner(commands.Cog):
 
         await ctx.channel.send("synced user prays")
 
-    # this is trash code you wrote at 4am dont use it ever again
+    # this is trash code you wrote at 4am dont use it ever again, you still need to fix the pray logs cus there is stuff with no user id
     @commands.command("adduserprays")
     @commands.is_owner()
     async def sync_user_prays(self, ctx):
         users = await self.bot.db.fetch("""SELECT * FROM users""")
         print(1)
         for user in users:
-            prays_without_id = await self.bot.db.fetch("""SELECT COUNT(*) FROM pray_logs WHERE username = $1 AND user_id IS NULL""", user["username"])
-            pray_count = (await self.bot.db.fetch("""SELECT * FROM users WHERE user_id = $1""", user["user_id"]))[0]["pray_count"]
-            await self.bot.db.execute("""UPDATE users SET pray_count = $1 WHERE user_id = $2""", pray_count + prays_without_id, user["user_id"])
+            if user["pray_count"] > 0:
+                prays_without_id = await self.bot.db.fetch("""SELECT COUNT(*) FROM pray_logs WHERE username = $1 AND user_id IS NULL""", user["username"])
+                pray_count = (await self.bot.db.fetch("""SELECT * FROM users WHERE user_id = $1""", user["user_id"]))[0]["pray_count"]
+                await self.bot.db.execute("""UPDATE users SET pray_count = $1 WHERE user_id = $2""", pray_count + prays_without_id, user["user_id"])
 
         print("done.")
 
