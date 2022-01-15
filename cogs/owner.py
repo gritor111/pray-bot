@@ -125,5 +125,6 @@ class Owner(commands.Cog):
 
         await ctx.channel.send("synced null prays")
 
+
 def setup(bot):
     bot.add_cog(Owner(bot))

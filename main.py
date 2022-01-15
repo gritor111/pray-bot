@@ -27,4 +27,6 @@ for cog in cog_list:
 
 bot.util = xp_funcs.Util(bot)
 bot.hdb = bot.get_cog('Database')
+for command in bot.commands:
+    print(command.name)
 bot.run(os.getenv('TOKEN'))
