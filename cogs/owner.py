@@ -104,7 +104,7 @@ class Owner(commands.Cog):
     # this is trash code you wrote at 4am dont use it ever again, you still need to fix the pray logs cus there is stuff with no user id
     @commands.command("adduserprays")
     @commands.is_owner()
-    async def sync_user_prays(self, ctx):
+    async def add_user_prays(self, ctx):
         users = await self.bot.db.fetch("""SELECT * FROM users""")
         print(1)
         for user in users:
