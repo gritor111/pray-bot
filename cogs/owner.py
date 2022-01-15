@@ -97,6 +97,7 @@ class Owner(commands.Cog):
             if user["user_id"]:
                 print(user)
                 pray_count = (await self.bot.db.fetch("""SELECT COUNT(*) FROM pray_logs WHERE user_id = $1""", user["user_id"]))
+                print(pray_count)
                 await self.bot.db.execute("""UPDATE users SET pray_count = $1 WHERE user_id = $2""", pray_count, user["user_id"])
 
         await ctx.channel.send("synced user prays")
