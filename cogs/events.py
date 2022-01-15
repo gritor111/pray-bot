@@ -36,7 +36,7 @@ class Events(commands.Cog):
                         user = await self.bot.hdb.get_user(member.id)
 
                     else:  # users with the same username ;-;
-                        async for message in ctx.channel.history(10):
+                        async for message in ctx.channel.history(limit=10):
                             if message.author.name == prayer_username:
                                 member = message.author
                                 user = await self.bot.hdb.get_user(member.id)
